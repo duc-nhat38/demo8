@@ -1,0 +1,15 @@
+:root {
+    --MainColor: #e6b800;
+}
+
+/* sidebar */
+#accordionSidebar {
+    background-color: var(--MainColor);
+    color: #262626;
+    z-index: 3;
+}
+
+/* nav-dashboard */
+#nav-dashboard {
+    
+}

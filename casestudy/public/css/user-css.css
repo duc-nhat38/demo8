@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* header */
+/* logo-navbar */
+.logo-navbar {
+    max-width: 100%;
+}
+.logo-navbar nav {
+    width: 100%;
+
+}
+
+.logo-navbar nav ul li:hover  {
+    background-color: #FACC2E;
+}
+.logo-navbar nav ul li i {
+    font-size: 30px;
+}
+.button {
+    background-color: #FACC2E;
+}
+/* search */
+.search {
+    width: 100%;
+}
+.search nav {
+    max-width: 100%;
+    padding-left:  2%;
+    padding-right: 2%;
+} 
+.search select {
+   margin:0 1%;
+}
+.search button i {
+    font-size: 25px;
+}
+.search select:hover {
+    background-color: #ffffcc;
+}

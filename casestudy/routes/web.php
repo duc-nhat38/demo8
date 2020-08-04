@@ -1,10 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-Route::get("formLogin", "LoginController@formLogin");
+use Illuminate\Support\Facades\Auth;
 
-Route::post("login", "LoginController@index");
-// 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomePageController@index');
+Route::get('/api/listadress', 'HomePageController@getListAddress');
+Route::get('/api/listaddressdetails', 'HomePageController@getListAddressDetails');
+Route::get('/api/getaddressdetails/{id}', 'HomePageController@getAddressDetails');
+
+// Route::get('/api', 'HomePageController@index');
+
+
+// Route::get('/', function () {
+//     return view('user.Index');
+// });
+// Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
