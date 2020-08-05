@@ -14,7 +14,10 @@
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('css/dashboard-css.css') }}">
+  {{-- datatable --}}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   @stack('dataTables')
+  

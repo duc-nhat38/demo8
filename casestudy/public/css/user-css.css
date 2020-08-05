@@ -14,13 +14,13 @@
 }
 
 .logo-navbar nav ul li:hover  {
-    background-color: #FACC2E;
+    background-color: #ffc107;
 }
 .logo-navbar nav ul li i {
     font-size: 30px;
 }
 .button {
-    background-color: #FACC2E;
+    background-color: #ffc107;
 }
 /* search */
 .search {

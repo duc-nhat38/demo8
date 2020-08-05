@@ -10,6 +10,11 @@
 }
 
 /* nav-dashboard */
-#nav-dashboard {
-    
+#tableUser th, #tableUser td {
+    text-align: center;
+}
+
+#tableUser img{
+  max-width: 70px;
+  max-height: 100px;
 }
