@@ -11,6 +11,7 @@ $factory->define(BannerImage::class, function (Faker $faker) {
         'title' => $faker->text($maxNbChars = 20),
         'imageAddress' => $faker->imageUrl($width = 1000, $height = 720),
         'employee_id' => $faker->numberBetween($min = 1, $max = 5),
-        'renter' => $faker->name($gender = null|'male'|'female')
+        'renter' => $faker->name($gender = 'male'|'female'),
+        'show' => '1'
     ];
 });

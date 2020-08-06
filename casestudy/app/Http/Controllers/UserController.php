@@ -81,6 +81,15 @@ class UserController extends Controller
         //
     }
 
+     
+    public function lock(Request $request){
+
+        $id = $request->id;
+        $user = $this->userRepository->lock($id);
+    
+        return response()->json($user);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -89,6 +98,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

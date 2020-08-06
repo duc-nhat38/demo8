@@ -26,6 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EmployeeInformationSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(VoteSeeder::class);
-        
+        $this->call(BannerImageSeeder::class);
     }
 }

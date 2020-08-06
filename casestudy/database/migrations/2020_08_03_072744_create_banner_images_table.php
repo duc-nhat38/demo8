@@ -19,6 +19,7 @@ class CreateBannerImagesTable extends Migration
             $table->string('imageAddress');
             $table->integer('employee_id')->unsigned();
             $table->string('renter');
+            $table->string('show')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

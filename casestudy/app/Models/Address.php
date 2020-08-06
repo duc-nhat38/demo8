@@ -13,6 +13,6 @@ class Address extends Model
 
     public function addressDetails()
     {
-        return $this->hasMany('App\Models\AddressDetails', 'address_id', 'id');
+        return $this->hasMany('App\Models\District', 'address_id', 'id');
     }
 }

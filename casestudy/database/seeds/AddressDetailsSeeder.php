@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AddressDetails;
+use App\Models\District;
 use Illuminate\Database\Seeder;
 
 class AddressDetailsSeeder extends Seeder
@@ -12,6 +12,6 @@ class AddressDetailsSeeder extends Seeder
      */
     public function run()
     {
-        factory(AddressDetails::class, 20)->create();
+        factory(District::class, 20)->create();
     }
 }

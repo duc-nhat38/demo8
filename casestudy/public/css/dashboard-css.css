@@ -10,10 +10,13 @@
 }
 
 /* nav-dashboard */
-#tableUser th, #tableUser td {
-    text-align: center;
-}
 
+.crown {
+    color: yellow;
+}
+.no-crown {
+    color: #262626;
+}
 #tableUser img{
   max-width: 70px;
   max-height: 100px;

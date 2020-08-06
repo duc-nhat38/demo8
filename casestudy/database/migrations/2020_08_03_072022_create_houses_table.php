@@ -17,7 +17,7 @@ class CreateHousesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('house_type_id')->unsigned();    
-            $table->integer('address_details_id')->unsigned();   
+            $table->integer('district_id')->unsigned();   
             $table->integer('home_information_id')->unsigned();
             $table->integer('business_type_id')->unsigned();     
             $table->string('price');

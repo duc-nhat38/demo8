@@ -13,7 +13,7 @@ class UpdateForeignkeyAddressDetails extends Migration
      */
     public function up()
     {
-        Schema::table('address_details', function (Blueprint $table) {
+        Schema::table('districts', function (Blueprint $table) {
             $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
@@ -25,7 +25,7 @@ class UpdateForeignkeyAddressDetails extends Migration
      */
     public function down()
     {
-        Schema::table('address_details', function (Blueprint $table) {
+        Schema::table('districts', function (Blueprint $table) {
             //
         });
     }

@@ -41,13 +41,13 @@ class UserRepository
             ->format();
     }
 
-    public function update($userId)
+    public function lock($userId)
     {
-        $User = User::where('id', $userId)->firstOrFail();
+        $user = User::where('id', $userId)->firstOrFail();
 
-        $User->update(request()->only(['name', 'active']));
+        $user->update(['locked' => 1]);
 
-        return $User;
+        return $user;
     }
 
     protected function format($user)

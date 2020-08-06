@@ -4,7 +4,9 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>{{ config('app.name', 'Dashboard') }}</title>
+{{-- <title>{{ config('app.name', 'Dashboard') }}</title> --}}
+
+<title>@yield('title', 'Dashboard')</title>
 
   <!-- Custom fonts for this template-->
   <link href=" {{asset('vendor/fontawesome-free/css/all.min.css')}} " rel="stylesheet" type="text/css">

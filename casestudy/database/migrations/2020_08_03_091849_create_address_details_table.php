@@ -13,7 +13,7 @@ class CreateAddressDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('address_details', function (Blueprint $table) {
+        Schema::create('districts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('address');
             $table->integer('address_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateAddressDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_details');
+        Schema::dropIfExists('districts');
     }
 }

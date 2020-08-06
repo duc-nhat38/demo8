@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\BannerImage;
+use App\Repositories\BannerImageRepository;
 use Illuminate\Http\Request;
 
 class BannerImageController extends Controller
-{
+{   
+    protected $bannerImageRepository;
+
+    public function __construct(BannerImageRepository $bannerImageRepository)
+    {
+        $this->bannerImageRepository = $bannerImageRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class BannerImageController extends Controller
      */
     public function index()
     {
-        //
+        $banners = $this->bannerImageRepository->fullBannerImage();
+
+        return response()->json($banners, 200);
     }
 
     /**

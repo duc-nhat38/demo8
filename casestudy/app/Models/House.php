@@ -42,6 +42,6 @@ class House extends Model
 
     public function address()
     {
-        return $this->belongsToMany('App\Models\AddressDetails', 'address_details_id', 'id');
+        return $this->belongsToMany('App\Models\District', 'districts_id', 'id');
     }
 }
