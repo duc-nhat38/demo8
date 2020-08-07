@@ -10,7 +10,7 @@ class Post extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    public function employee(){
-        return $this->belongsToMany('App\Models\Employee', 'employee_id', 'id');
+    public function user(){
+        return $this->belongsToMany('App\User', 'user_id', 'id');
     }
 }

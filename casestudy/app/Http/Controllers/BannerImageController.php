@@ -21,7 +21,7 @@ class BannerImageController extends Controller
      */
     public function index()
     {
-        $banners = $this->bannerImageRepository->fullBannerImage();
+        $banners = $this->bannerImageRepository->all();
 
         return response()->json($banners, 200);
     }
@@ -53,9 +53,9 @@ class BannerImageController extends Controller
      * @param  \App\Models\BannerImage  $bannerImage
      * @return \Illuminate\Http\Response
      */
-    public function show(BannerImage $bannerImage)
+    public function show(Request $request)
     {
-        //
+        
     }
 
     /**

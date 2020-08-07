@@ -3,60 +3,65 @@
 namespace App\Repositories;
 
 use App\User;
+use App\Repositories\UserRepositoryInterface;
 
-class UserRepository
+
+class UserRepository implements UserRepositoryInterface
 {
+
     public function all()
     {
-        $users = User::all();
+        $users = User::where('isAdmin', 0)
+            ->get();
 
         return $users;
     }
 
-    public function fullUser()
+    public function show($id)
     {
-        $users = User::select('users.*', 'user_information.*')
-        ->leftJoin('user_information', 'users.id', '=', 'user_information.user_id')
-        ->get();
-
-        return $users;
-    }
-
-    public function findById($userId)
-    {
-        return User::where('id', $userId)
-            ->where('active', 1)
-            ->with('user')
-            ->firstOrFail();
-    }
-
-    public function findByUserName($userName)
-    {
-
-        return User::where('name', 'like', '%' . $userName . '%')
-            ->where('active', 1)
-            ->with('user')
-            ->get()
-            ->map
-            ->format();
-    }
-
-    public function lock($userId)
-    {
-        $user = User::where('id', $userId)->firstOrFail();
-
-        $user->update(['locked' => 1]);
+        $user = User::select('users.*', 'user_information.fullName', 'user_information.phone',  'user_information.address', 'user_information.gender')
+            ->leftJoin('user_information', 'users.id', '=', 'user_information.user_id')
+            ->where('users.id', $id)
+            ->get();
 
         return $user;
     }
 
-    protected function format($user)
+    public function lock($userId)
     {
-        return [
-            'User_id' => $user->id,
-            'name' => $user->name,
-            'created_by' => $user->user->email,
-            'last_updated' => $user->updated_at->diffForHumans(),
-        ];
+        $user = User::find($userId);
+        $user->locked = 1;
+        $user->save();
+
+        return $user;
     }
+
+    public function unlock($userId)
+    {
+        $user = User::find($userId);
+        $user->locked = 0;
+        $user->save();
+
+        return $user;
+    }
+
+    public function grantAuthority($userId)
+    {
+        $user = User::find($userId);
+        $user->role = 1;
+        $user->save();
+
+        return $user;
+    }
+
+    public function revokePowers($userId)
+    {
+        $user = User::find($userId);
+        $user->role = 0;
+        $user->save();
+
+        return $user;
+    }
+
+
 }

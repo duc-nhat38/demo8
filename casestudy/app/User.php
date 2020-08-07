@@ -27,7 +27,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Vote', 'user_id', 'id');
     }
-
+    public function pots()
+    {
+        return $this->hasMany('App\Models\Post', 'user_id', 'id');
+    }
+    public function banners(){
+        return $this->hasMany('App\Models\BannerImage', 'user_id', 'id');
+    }
     public function information()
     {
         return $this->hasOne('App\Models\UserInformation', 'user_id', 'id');

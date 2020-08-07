@@ -18,7 +18,7 @@
           @include('partialsAdmin.nav-admin')
 
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid" id="content-dashboard">
 
                 @yield('content')
 

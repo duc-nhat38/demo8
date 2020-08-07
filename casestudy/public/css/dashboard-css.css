@@ -1,18 +1,30 @@
 :root {
     --MainColor: #e6b800;
 }
-
+#content-dashboard {
+    /* width: 83.5%;
+    margin-left: 16.5%;
+    margin-top: 5.5%; */
+    display: none;
+}
 /* sidebar */
 #accordionSidebar {
     background-color: var(--MainColor);
-    color: #262626;
-    z-index: 3;
+    /* color: #262626;
+    z-index: 6;
+    top: 0;
+    left: 0; */
 }
 
 /* nav-dashboard */
-
+/* #nav-dashboard {
+    width: 85%;
+    right: 0;
+    top: 0;
+    z-index: 5;
+} */
 .crown {
-    color: yellow;
+    color: var(--MainColor);
 }
 .no-crown {
     color: #262626;
@@ -20,4 +32,33 @@
 #tableUser img{
   max-width: 70px;
   max-height: 100px;
+}
+
+/* Banner */ 
+#showBanner div{
+    width: 500px;
+    height: 300px;
+    margin: 1% 1% 1% 2%;
+}
+.button-banner {
+    top: 45%;
+    left: 45%;
+    z-index: 3;
+    width: 50px;
+    height: 50px;
+}
+/* modal */
+.modal-body img {
+    max-width: 450px;
+    max-height: 270px;
+}
+.size-crown {
+    font-size: 25px;
+}
+/* data table */
+.paging_simple_numbers {
+    margin-top: 1rem;
+}
+.dataTables_filter  {
+    margin-bottom: 1rem;
 }

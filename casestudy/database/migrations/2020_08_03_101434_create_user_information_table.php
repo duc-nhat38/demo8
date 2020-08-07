@@ -17,7 +17,13 @@ class CreateUserInformationTable extends Migration
             $table->increments('id');
             $table->string('fullName')->nullable();
             $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('gender')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->string('role')->default(1);
+            $table->string('isAdmin')->default(0);      
+            $table->string('locked')->default(0);     
+            $table->string('avatar')->default('none.jpg');
             $table->timestamps();
             $table->softDeletes();
 

@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
         
         $this->call(HouseSeeder::class);       
         $this->call(CommentSeeder::class);
-        $this->call(EmployeeSeeder::class);
-        $this->call(EmployeeInformationSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(VoteSeeder::class);
         $this->call(BannerImageSeeder::class);

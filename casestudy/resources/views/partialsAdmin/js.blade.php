@@ -12,6 +12,8 @@
 
 {{-- datatable js --}}
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+{{-- highcharts --}}
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
 @stack('toastr-login')
 

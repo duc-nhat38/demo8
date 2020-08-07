@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userRepository->fullUser();
+        $users = $this->userRepository->all();
 
         return response()->json($users, 200);
     }
@@ -53,9 +53,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $id = $request->id;
+        $user = $this->userRepository->show($id);
+
+        return response()->json($user, 200);
     }
 
     /**
@@ -80,13 +83,28 @@ class UserController extends Controller
     {
         //
     }
-
      
     public function lock(Request $request){
 
-        $id = $request->id;
-        $user = $this->userRepository->lock($id);
-    
+        $id = (int) $request->id;
+        if($request->locked == 0){
+            $user = $this->userRepository->lock($id);
+        }else{
+            $user = $this->userRepository->unlock($id);
+        }
+        
+        return response()->json($user);
+    }
+
+    public function power(Request $request){
+
+        $id = (int) $request->id;
+        if($request->role == 0){
+            $user = $this->userRepository->grantAuthority($id);
+        }else{
+            $user = $this->userRepository->revokePowers($id);
+        }
+        
         return response()->json($user);
     }
 
@@ -99,5 +117,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         
+    }
+
+    public function statistics(){
+
+        $totalUser = $this->userRepository->totalUser();
     }
 }

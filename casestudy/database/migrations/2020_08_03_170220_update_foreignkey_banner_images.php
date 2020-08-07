@@ -14,7 +14,7 @@ class UpdateForeignkeyBannerImages extends Migration
     public function up()
     {
         Schema::table('banner_images', function (Blueprint $table) {
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
