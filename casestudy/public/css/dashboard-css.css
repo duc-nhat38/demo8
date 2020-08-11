@@ -1,11 +1,13 @@
 :root {
     --MainColor: #e6b800;
+    --MainHover: #cca300;
 }
 #content-dashboard {
     /* width: 83.5%;
     margin-left: 16.5%;
     margin-top: 5.5%; */
     display: none;
+    position: relative;
 }
 /* sidebar */
 #accordionSidebar {
@@ -23,12 +25,12 @@
     top: 0;
     z-index: 5;
 } */
-.crown {
+/* .crown {
     color: var(--MainColor);
 }
 .no-crown {
     color: #262626;
-}
+} */
 #tableUser img{
   max-width: 70px;
   max-height: 100px;
@@ -46,19 +48,57 @@
     z-index: 3;
     width: 50px;
     height: 50px;
+    padding-top: 2.5%;
 }
+#tableBanner tr img {
+    max-width: 300px;
+    max-height: 200px;
+}
+
 /* modal */
 .modal-body img {
     max-width: 450px;
     max-height: 270px;
 }
-.size-crown {
-    font-size: 25px;
+#image {
+    max-width: 100%;
 }
+/* .size-crown {
+    font-size: 25px;
+} */
 /* data table */
 .paging_simple_numbers {
     margin-top: 1rem;
 }
 .dataTables_filter  {
     margin-bottom: 1rem;
+}
+
+/* Post */
+.click-post {
+    background-color: var(--MainColor);
+    color: white;
+    padding: 1rem 0;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 2%;
+}
+.click-post:hover {
+    background-color: var(--MainHover);
+}
+.posts {
+    border: 1px solid;
+    background-color: var(--gray);
+    border-radius: 5px;
+}
+.statistical {
+    margin-left: 5px;
+    border: 1px solid;
+    background-color: var(--gray);
+    border-radius: 5px;
+}
+/*  */
+#coverImage {
+    max-width: 400x;
+    max-height: 150px;
 }

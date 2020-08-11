@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\BannerImageRepository;
+use App\Repositories\BannerRepositoryInterface;
+use App\Repositories\PostRepository;
+use App\Repositories\PostRepositoryInterface;
+use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,8 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       $this->app->singleton(App\Repositories\UserRepositoryInterface::class, App\Repositories\UserRepository::class);
-       $this->app->singleton(App\Repositories\BannerRepositoryInterface::class, App\Repositories\BannerImageRepository::class);
+       
     }
 
     /**
@@ -24,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(BannerRepositoryInterface::class, BannerImageRepository::class);
+        $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
     }
 }

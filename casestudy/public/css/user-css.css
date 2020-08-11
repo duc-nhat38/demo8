@@ -40,3 +40,10 @@
 .search select:hover {
     background-color: #ffffcc;
 }
+.background-form-login{
+    background-image: url(https://travelsgcc.com/wp-content/uploads/2020/03/anh-ho-tuyen-lam-1.jpg);
+    height: 90vh;
+}
+.crystal-clear {
+    background-color: transparent;
+}

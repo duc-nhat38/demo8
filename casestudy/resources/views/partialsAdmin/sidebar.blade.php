@@ -39,7 +39,7 @@
           <h6 class="collapse-header">Component manager:</h6>
           <a class="collapse-item" href="javascript:;" onclick="user.show()">Người dùng</a>
           <a class="collapse-item" href="javascript:;" onclick="banner.show()">Quảng cáo</a>
-          <a class="collapse-item" href="javascript:;">Tin tức</a>
+          <a class="collapse-item" href="javascript:;" onclick="post.show()">Tin tức</a>
         </div>
       </div>
     </li>
@@ -80,7 +80,7 @@
       <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login.html">Login</a>
+          <a class="collapse-item" href="{{ route('logout') }}">Logout</a>
           <a class="collapse-item" href="register.html">Register</a>
           <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
           <div class="collapse-divider"></div>

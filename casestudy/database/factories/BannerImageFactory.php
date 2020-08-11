@@ -11,7 +11,8 @@ $factory->define(BannerImage::class, function (Faker $faker) {
         'title' => $faker->text($maxNbChars = 20),
         'imageAddress' => $faker->imageUrl($width = 1000, $height = 720),
         'user_id' => $faker->numberBetween($min = 1, $max = 5),
-        'renter' => $faker->name($gender = 'male'|'female'),
-        'show' => '1'
+        'partner' => $faker->name($gender = 'male'|'female'),
+        'show' => '1',
+        'expirationDate' => '2020/09/01'
     ];
 });

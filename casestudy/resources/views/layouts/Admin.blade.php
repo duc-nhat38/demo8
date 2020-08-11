@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     @include('partialsAdmin.head')
+    <title>@yield('title')</title>
+
 </head>
 <body>
     <!-- Page Wrapper -->

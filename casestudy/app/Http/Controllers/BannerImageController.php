@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\BannerImage;
-use App\Repositories\BannerImageRepository;
+use App\Repositories\BannerRepositoryInterface;
 use Illuminate\Http\Request;
 
 class BannerImageController extends Controller
 {   
-    protected $bannerImageRepository;
+    protected $bannerRepository;
 
-    public function __construct(BannerImageRepository $bannerImageRepository)
+    public function __construct(BannerRepositoryInterface $bannerRepositoryInterface)
     {
-        $this->bannerImageRepository = $bannerImageRepository;
+        $this->bannerRepository = $bannerRepositoryInterface;
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class BannerImageController extends Controller
      */
     public function index()
     {
-        $banners = $this->bannerImageRepository->all();
+        $banners = $this->bannerRepository->all();
 
         return response()->json($banners, 200);
     }
@@ -44,7 +44,10 @@ class BannerImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attribute = $request->all();
+        $banner = $this->bannerRepository->create($attribute);
+
+        return response()->json($banner, 200);
     }
 
     /**
@@ -55,7 +58,10 @@ class BannerImageController extends Controller
      */
     public function show(Request $request)
     {
-        
+        $id = $request->id;
+        $banner = $this->bannerRepository->show($id);
+
+        return response()->json($banner, 200);
     }
 
     /**
@@ -76,9 +82,12 @@ class BannerImageController extends Controller
      * @param  \App\Models\BannerImage  $bannerImage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BannerImage $bannerImage)
+    public function update(Request $request)
     {
-        //
+        $attribute = $request->all();
+        $banner = $this->bannerRepository->update($attribute);
+
+        return response()->json($banner);
     }
 
     /**
@@ -87,8 +96,11 @@ class BannerImageController extends Controller
      * @param  \App\Models\BannerImage  $bannerImage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BannerImage $bannerImage)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        $banner = $this->bannerRepository->destroy($id);
+
+        return response()->json($banner);
     }
 }

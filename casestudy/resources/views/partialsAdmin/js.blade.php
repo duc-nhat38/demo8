@@ -12,8 +12,11 @@
 
 {{-- datatable js --}}
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-{{-- highcharts --}}
-<script src="https://code.highcharts.com/highcharts.js"></script>
+{{-- bootbox --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+{{-- ck editor --}}
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script> CKEDITOR.replace('editor1'); </script>
 
 @stack('toastr-login')
 

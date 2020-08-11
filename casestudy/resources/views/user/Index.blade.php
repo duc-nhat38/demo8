@@ -1,5 +1,8 @@
 @extends('layouts.HomePage')
 
 @section('content')
-    <h2>hello</h2>
+@include('user.Banner')
+<h2>hello</h2>
+
+<button></button>
 @endsection

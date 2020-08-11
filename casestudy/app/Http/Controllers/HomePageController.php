@@ -6,6 +6,8 @@ use App\Models\Address;
 use App\Models\AddressDetails;
 use App\Models\BusinessType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomePageController extends Controller
 {
@@ -16,15 +18,13 @@ class HomePageController extends Controller
      */
     public function index()
     {
-        // $listAddress = Address::all();
-        // $listAddressDetails = AddressDetails::all();
+        if(Auth::user() != null && (Auth::user()->isAdmin == 1)){
+
+            return redirect()->route('dashboard');
+        }
+
         $businessType = BusinessType::all();
-        // $data = [
-        //     "listAddress" => $listAddress,
-        //     "listAddressDetails" => $listAddressDetails,
-        //     "businessType" => $businessType
-        // ];
-        // return response()->json([$data] , 200);
+
         return view('user.Index', compact(['businessType']));
     }
 

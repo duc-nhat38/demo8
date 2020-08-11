@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     protected $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepositoryInterface)
     {
-        $this->userRepository =$userRepository;
+        $this->userRepository =$userRepositoryInterface;
     }
 
     /**
@@ -119,8 +119,4 @@ class UserController extends Controller
         
     }
 
-    public function statistics(){
-
-        $totalUser = $this->userRepository->totalUser();
-    }
 }

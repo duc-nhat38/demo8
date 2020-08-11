@@ -1,9 +1,13 @@
 <?php
 namespace App\Repositories;
 
-use App\Repositories\RepositoryInterface;
+// use App\Repositories\RepositoryInterface;
 
-interface UserRepositoryInterface extends RepositoryInterface {
+interface UserRepositoryInterface  {
+
+    public function all();
+
+    public function show($userId);
 
     public function lock($userId);
 
