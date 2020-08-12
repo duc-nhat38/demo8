@@ -19,4 +19,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
+Route::group(['prefix' => 'dashboard', 'auth' => 'login'], function () {
+
+    Route::get('/', 'DashboardController@index')->name('dashboard')->middleware('auth');
+
+    Route::get('/user-manager', 'DashboardController@userManager')->name('user.manager');
+
+    Route::get('/banner-manager', 'DashboardController@bannerManager')->name('banner.manager');
+
+    Route::get('/post-manager', 'DashboardController@postManager')->name('post.manager');
+
+    Route::get('/address-manager', 'DashboardController@addressManager')->name('address.manager');
+
+
+});

@@ -3,34 +3,17 @@
     --MainHover: #cca300;
 }
 #content-dashboard {
-    /* width: 83.5%;
-    margin-left: 16.5%;
-    margin-top: 5.5%; */
-    display: none;
+    max-height: 100vh;
+    overflow-y: scroll;
     position: relative;
 }
 /* sidebar */
 #accordionSidebar {
     background-color: var(--MainColor);
-    /* color: #262626;
-    z-index: 6;
-    top: 0;
-    left: 0; */
 }
 
 /* nav-dashboard */
-/* #nav-dashboard {
-    width: 85%;
-    right: 0;
-    top: 0;
-    z-index: 5;
-} */
-/* .crown {
-    color: var(--MainColor);
-}
-.no-crown {
-    color: #262626;
-} */
+
 #tableUser img{
   max-width: 70px;
   max-height: 100px;
@@ -73,6 +56,10 @@
 .dataTables_filter  {
     margin-bottom: 1rem;
 }
+.dataTables_filter input {
+    border: 1px solid var(--dark);
+    border-radius: 5px;
+}
 
 /* Post */
 .click-post {
@@ -98,7 +85,13 @@
     border-radius: 5px;
 }
 /*  */
-#coverImage {
-    max-width: 400x;
-    max-height: 150px;
+#divImage {
+   width: 220x;
+   height: 150px;
+   background-color: var(--light);
 }
+#coverImage {
+    max-width: 220x;
+    max-height: 160px;
+}
+

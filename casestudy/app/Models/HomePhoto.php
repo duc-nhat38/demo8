@@ -11,6 +11,6 @@ class HomePhoto extends Model
     protected $guarded = [];
 
     public function information(){
-        return $this->belongsToMany('App\Models\HomeInformation', 'home_photo_id', 'id');
+        return $this->belongsTo('App\Models\HomeInformation', 'home_photo_id', 'id');
     }
 }

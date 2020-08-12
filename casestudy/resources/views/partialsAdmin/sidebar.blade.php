@@ -37,9 +37,10 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Component manager:</h6>
-          <a class="collapse-item" href="javascript:;" onclick="user.show()">Người dùng</a>
-          <a class="collapse-item" href="javascript:;" onclick="banner.show()">Quảng cáo</a>
-          <a class="collapse-item" href="javascript:;" onclick="post.show()">Tin tức</a>
+          <a class="collapse-item" href="{{ route('user.manager') }}">Người dùng</a>
+          <a class="collapse-item" href="{{ route('banner.manager') }}">Quảng cáo</a>
+          <a class="collapse-item" href="{{ route('post.manager') }}" >Tin tức</a>
+          <a class="collapse-item" href="{{ route('address.manager') }}" >Địa chỉ</a>
         </div>
       </div>
     </li>

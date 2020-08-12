@@ -44,7 +44,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attribute = $request->all();
+        $post = $this->postRepository->create($attribute);
+
+        return response()->json($post, 200);
     }
 
     /**

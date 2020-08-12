@@ -26,9 +26,24 @@ Route::get('/get-posts', 'PostController@index')->name('get.posts');
 
 Route::get('/get-post-detail', 'PostController@show')->name('post.detail');
 
+Route::post('/post-create', 'PostController@store')->name('post.create');
+
 Route::post('/post-update', 'PostController@update')->name('post.update');
 
 Route::delete('/post-destroy', 'PostController@destroy')->name('post.destroy');
+// address
+Route::get('/get-address', 'AddressController@index')->name('get.address');
+
+Route::get('/get-address-detail', 'AddressController@show')->name('address.detail');
+
+Route::post('/address-create', 'AddressController@store')->name('address.create');
+
+// district
+Route::get('/get-district', 'DistrictController@index')->name('get.district');
+
+Route::get('/get-district-detail', 'DistrictController@show')->name('district.detail');
+
+Route::post('/district-create', 'DistrictController@store')->name('district.create');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

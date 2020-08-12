@@ -40,4 +40,16 @@ class PostRepository implements PostRepositoryInterface
     {
         Post::where('id', $id)->delete();
     }
+
+    public function create(array $array)
+    {
+        $post = new Post();
+        $post->title = $array['title'];
+        $post->content = $array['content'];
+        $post->user_id = $array['user_id'];
+        $post->coverImage = $array['coverImage'];
+        $post->save();
+
+        return $post;
+    }
 }

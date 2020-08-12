@@ -1,6 +1,13 @@
 @extends('layouts.Admin')
 
 @section('content')
+    <h2>hehe</h2>
+@endsection
+
+
+{{-- @extends('layouts.Admin')
+
+@section('content')
 <div id="user">
     <h1 class="display-4 text-center">Danh sách người dùng</h1>
     <table class="table  table-hover text-md-center" id="tableUser">
@@ -75,25 +82,7 @@
         <span>Đăng bài ngay</span>
         <i class="far fa-edit ml-2"></i>
     </div>
-    {{-- <div>
-        <form id="formDataPost">
-            <div class="form-group form-row">
-                <div class="col">
-                    <label for="titlePost">Tiêu đề bài viết :</label>
-                    <textarea class="form-control" id="titlePost" rows="3"></textarea>
-                </div>
-                <div class="col">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="texarea">Nội dung bài viết : </label>
-                <textarea class="form-control editor1" id="editor1" rows="10"></textarea>
-            </div>
-            <input type="hidden" name="id" id="postId">
-            <input type="hidden" name="user_id" id="userId" value="{{ Auth::user()->id }}">
-        </form>
-    </div> --}}
-</div>
+   
 <!-- Modal banner-->
 <div class="modal fade" id="editAddbanner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -118,7 +107,7 @@
 
 {{-- modal xl --}}
 
-<div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+{{-- <div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
@@ -136,19 +125,23 @@
                         <div class="form-group form-row">
                             <div class="col">
                                 <label for="titlePost">Tiêu đề bài viết :</label>
-                                <textarea class="form-control" id="titlePost" rows="3"></textarea>
+                                <textarea class="form-control" id="titlePost" rows="6"></textarea>
                             </div>
-                            <div class="col d-flex">
-                                <img src="" class="img-thumbnail" alt="" id="coverImage">
-                                <input class="mt-2 ml-2" type="file" accept="image/*" class="form-control-file" name="imageUpload" id="imageUpload" onchange="post.showCoverImage(this)">
+                            <div class="col">
+                                <label for="">Ảnh bìa : </label>
+                                <div id="divImage">
+                                    <img src="" class="img-thumbnail" alt="" id="coverImage"><br>
+                                </div>
+                                <input class="mt-3 ml-2" type="file" accept="image/*" class="form-control-file"
+                                    name="imageUpload" id="imageUpload" onchange="post.showCoverImage(this)">
                             </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="texarea">Nội dung bài viết : </label>
-                        <textarea class="form-control editor1" id="editor1" rows="10"></textarea>
-                    </div>
-                    <input type="hidden" name="id" id="postId">
-                    <input type="hidden" name="user_id" id="userId" value="{{ Auth::user()->id }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="texarea">Nội dung bài viết : </label>
+                            <textarea class="form-control editor1" id="editor1" rows="10"></textarea>
+                        </div>
+                        <input type="hidden" name="id" id="postId">
+                        <input type="hidden" name="user_id" id="userId" value="{{ Auth::user()->id }}">
                 </form>
             </div>
 
@@ -162,11 +155,11 @@
     </div>
 </div>
 
-@endsection
+@endsection --}}
 
-@push('dataTables-js')
+{{-- @push('dataTables-js')
 <script>
-//  jquery ajax user dashboard
+    //   jquery ajax user dashboard
     var user = user || {};
 
     user.getUsers = function(){
@@ -537,7 +530,7 @@
     }
 
 // jquery ajax Post
-var post = post || {};
+    var post = post || {};
 
     post.get = function(){
         $.ajax ({
@@ -611,7 +604,8 @@ var post = post || {};
     }
 
     post.save = function(){
-        $.ajax ({
+        if($('#postId').val() != 0){
+            $.ajax ({
             method: 'POST',
             url: '{{ route("post.update") }}',
             dataType: 'json',
@@ -627,7 +621,25 @@ var post = post || {};
                 post.get();
                 toastr["success"]("Thay đổi thành công !");
             }
+            });
+        }else{
+            $.ajax ({
+            method: 'POST',
+            url: '{{ route("post.create") }}',
+            dataType: 'json',
+            data: {
+                title: $('#titlePost').val(),
+                content: CKEDITOR.instances.editor1.getData(),
+                user_id: $('#userId').val(),
+                coverImage: $('#coverImage').attr('src'),
+            },
+            success: function(data){
+                $('#editPost').modal('hide');
+                post.get();
+                toastr["success"]("Thay đổi thành công !");
+            }
         });
+    }
     }
 
     post.delete = function(id){
@@ -662,6 +674,7 @@ var post = post || {};
             }
         });
     }
+
     post.showCoverImage = function(data){
         if(data.files[0] != null){
             let image = data.files[0];
@@ -672,6 +685,13 @@ var post = post || {};
             reader.readAsDataURL(image);
        }
     }
+    post.dropDown = function(){
+        $('#titlePost').val('');
+        $('#coverImage').attr('src','');
+        CKEDITOR.instances.editor1.setData('');
+        $('#postId').val(0);
+        $('#editPost').modal('show');
+    }
 
 
     $(document).ready( function () {
@@ -681,7 +701,6 @@ var post = post || {};
         closed();
         $('#content-dashboard').css('display', 'block');
         $('[data-toggle="tooltip"]').tooltip();
-        
     } );
 </script>
-@endpush
+@endpush --}}

@@ -12,7 +12,7 @@ class House extends Model
 
     public function businessType()
     {
-        return $this->belongsToMany('App\Models\BusinessType', 'business_type_id', 'id');
+        return $this->belongsTo('App\Models\BusinessType', 'business_type_id', 'id');
     }
 
     public function comments()
@@ -27,7 +27,7 @@ class House extends Model
 
     public function user()
     {
-        return $this->belongsToMany('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     public function votes()
@@ -37,11 +37,11 @@ class House extends Model
 
     public function houseType()
     {
-        return $this->belongsToMany('App\Models\HouseType', 'house_type_id', 'id');
+        return $this->belongsTo('App\Models\HouseType', 'house_type_id', 'id');
     }
 
     public function address()
     {
-        return $this->belongsToMany('App\Models\District', 'districts_id', 'id');
+        return $this->belongsTo('App\Models\District', 'districts_id', 'id');
     }
 }

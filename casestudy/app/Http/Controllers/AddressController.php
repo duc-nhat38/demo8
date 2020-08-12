@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Repositories\AddressRepositoryInterface;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    protected $addressRepository;
+
+    public function __construct(AddressRepositoryInterface $addressRepositoryInterface)
+    {
+        $this->addressRepository = $addressRepositoryInterface;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $address = $this->addressRepository->all();
+
+        return response()->json($address, 200);
     }
 
     /**
@@ -35,7 +44,10 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attribute = $request->all();
+        $address = $this->addressRepository->create($attribute);
+
+        return response()->json($address, 200);
     }
 
     /**
@@ -44,9 +56,12 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function show(Address $address)
+    public function show(Request $request)
     {
-        //
+        $id = $request->id;
+        $districts = $this->addressRepository->show($id);
+
+        return response()->json($districts, 200);
     }
 
     /**

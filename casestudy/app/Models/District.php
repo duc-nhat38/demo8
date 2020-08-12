@@ -11,7 +11,7 @@ class District extends Model
     protected $guarded = [];
 
     public function address(){
-        return $this->belongsToMany('App\Models\Address', 'address_id', 'id');
+        return $this->belongsTo('App\Models\Address', 'address_id', 'id');
     }
     public function houses(){
         return $this->hasMany('App\Models\House', 'districts_id', 'id');
