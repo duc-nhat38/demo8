@@ -17,6 +17,13 @@ interface UserRepositoryInterface  {
 
     public function revokePowers($userId);
 
+    public function update(Array $array);
+
+    public function getHouses($id);
+
+    public function getUser($id);
+
+    public function updateAvatar($data);
 }
 
 ?>

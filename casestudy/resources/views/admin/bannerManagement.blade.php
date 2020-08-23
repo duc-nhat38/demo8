@@ -68,7 +68,6 @@
                 dataType: "json",
                 url: '{{ route("get.banners") }}',
                 success: function (data){
-                    console.log(data);
                     $('#tableBanner tbody').empty();
                     $('#showBanner').empty();
                     $('#showBanner').append(`
@@ -80,17 +79,17 @@
                         </div>
                     `);
                     $.each(data, function (i, item) {
-                        if(item.show == 1){
-                            $('#showBanner').prepend(`
-                            <div class="position-relative">
-                                <img src="${item.imageAddress}" alt="" class="mh-100 w-100 img-thumbnail">
-                                <a href="javascript:;" title="Thay đổi" class="text-center rounded-circle button-banner position-absolute border" onclick="">
-                                    <i class="fas fa-plus text-white"></i>
-                                </a>
-                            </div>
+                        // if(item.show == 1){
+                        //     $('#showBanner').prepend(`
+                        //     <div class="position-relative">
+                        //         <img src="${item.imageAddress}" alt="" class="mh-100 w-100 img-thumbnail">
+                        //         <a href="javascript:;" title="Thay đổi" class="text-center rounded-circle button-banner position-absolute border" onclick="">
+                        //             <i class="fas fa-plus text-white"></i>
+                        //         </a>
+                        //     </div>
                             
-                        `);
-                        }
+                        // `);
+                        // }
                         
                         $('#tableBanner tbody').append(`                       
                         <tr>

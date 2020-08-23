@@ -26,31 +26,6 @@ class DistrictController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $id = $request->id;
-        $districts = explode(',', trim(trim($request->district, ' '), ","));
-        $district = $this->districtRepository->create([$id, $districts]);
-
-        return response()->json($district, 200);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -64,16 +39,6 @@ class DistrictController extends Controller
         return response()->json($address, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -82,9 +47,12 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $attribute = $request->all();
+        $district = $this->districtRepository->update($attribute);
+
+        return response()->json($district, 200);
     }
 
     /**
@@ -93,8 +61,11 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        $district = $this->districtRepository->destroy($id);
+
+        return response()->json($district, 200);
     }
 }

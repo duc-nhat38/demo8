@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHouseTypesTable extends Migration
+class CreateSlideShowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateHouseTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('house_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('typeName');
+        Schema::create('slide_shows', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->longText('photo');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateHouseTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('house_types');
+        Schema::dropIfExists('slide_shows');
     }
 }

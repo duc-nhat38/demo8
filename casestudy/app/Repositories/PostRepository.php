@@ -10,11 +10,12 @@ class PostRepository implements PostRepositoryInterface
     {
         $posts = Post::select('posts.*', 'users.name')
             ->join('users', 'posts.user_id', '=', 'users.id')
-            ->get();
-        foreach ($posts as $post) {
-            $post['day_create'] = $post['created_at']->format('d/m/Y');
-            $post['day_update'] = $post['updated_at']->format('d/m/Y');
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        foreach($posts as $post){
+            $post['day_create'] = $post['created_at']->format('H:m d-m-Y');
         }
+
         return $posts;
     }
 
@@ -51,5 +52,33 @@ class PostRepository implements PostRepositoryInterface
         $post->save();
 
         return $post;
+    }
+    public function getPostNews()
+    {
+
+        $postNews = Post::select('id', 'title', 'view', 'coverImage', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        foreach ($postNews as $postNew) {
+
+            $postNew['day_create'] = $postNew['created_at']->format('H:m d/m/Y');
+        }
+
+        return $postNews;
+    }
+    public function view($id)
+    {
+        $view = Post::where('id', $id)->increment('view');
+
+        return $view;
+    }
+
+    public function postRandom()
+    {
+        $views = Post::inRandomOrder()->limit(8)->get();
+
+        return $views;
     }
 }

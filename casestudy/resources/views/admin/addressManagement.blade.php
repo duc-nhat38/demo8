@@ -3,13 +3,12 @@
 @section('content')
 <p class="display-4 text-center">Quản lý Tỉnh , huyện </p>
 <div class="address row justify-content-between mt-3">
-  <div class="col-7">
+  <div class="col">
     <table class="table mr-1 table-hover text-md-center" id="tableAdd">
       <thead class="thead-dark">
         <tr>
           <th scope="col">STT</th>
           <th scope="col">Tỉnh</th>
-          <th scope="col">Thêm Huyện</th>
           <th scope="col">Sửa / Xóa</th>
         </tr>
       </thead>
@@ -17,9 +16,8 @@
 
       </tbody>
     </table>
-    <button class="btn btn-warning text-dark font-weight-bold"  data-toggle="modal" data-target="#editAddress">Thêm tỉnh mới</button>
   </div>
-  <div class="col-5">
+  <div class="col">
     <table class="table ml-1 table-hover text-md-center" id="tableDistrict">
       <thead class="thead-dark">
         <tr>
@@ -35,34 +33,30 @@
   </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal" id="editAddress">
-  <div class="modal-dialog">
+<div class="modal fade" id="editAddress">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-address-title">Thêm tỉnh</h4>
+        <h4 class="modal-title">Sửa tên</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
-      <div class="modal-address-body p-2">
+      <div class="modal-body">
         <div class="form-group">
-          <label for="inputAddress">Tên tỉnh</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Nhập tên tỉnh ....">
+          <label for="nameEdit">Tên :</label>
+          <input type="text" class="form-control" id="nameEdit" placeholder="Nhập tên">
         </div>
-        <div class="form-group">
-          <label for="inputDistrict">Tên huyện</label>
-          <textarea class="form-control" id="inputDistrict" rows="3" placeholder="Nhập tên huyện (mỗi tên cách nhau bằng dấu phẩy VD: Hà Tĩnh,Huế) ...."></textarea>
-        </div>
-        <input type="hidden" class="form-control" id="addressId" value='0'>
+        <input type="hidden" class="form-control" id="idHidden">
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-success" onclick="address.create()">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-success addressSave" onclick="address.save()">Lưu</button>
+        <button type="button" class="btn btn-success districtSave" onclick="district.save()">Lưu</button>
       </div>
 
     </div>
@@ -90,12 +84,9 @@
                       <td >
                         <a href="javascript:;" class="text-decoration-none" onclick=address.detail(${value.id})>${value.address}</a>
                       </td>
-                      <td>
-                        <a href="javascript:;" title="Thêm huyện"onclick="district.modalShow(${value.id},${value.address})"><i class="fas fa-lg fa-map-marked-alt text-primary"></i></a>                       
-                      </td>
                       <td class="d-flex justify-content-around">
-                        <a href="javascript:;" title="Sửa" onclick=""><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
-                        <a href="javascript:;" title="Xóa" onclick=""><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
+                        <a href="javascript:;" title="Sửa" onclick=address.edit(${value.id},'${value.address}')><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
+                        <a href="javascript:;" title="Xóa" onclick="address.delete(${value.id})"><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
                       </td>
                     </tr>
                     `);
@@ -128,12 +119,9 @@
             <td >
               <a href="javascript:;" class="text-decoration-none" onclick=address.detail(${data.id})>${data.address}</a>
             </td>
-            <td>
-              <a href="javascript:;" title="Thêm huyện" onclick="district.modalShow(${data.id},${data.address})"><i class="fas fa-lg fa-map-marked-alt text-primary"></i></a>                       
-            </td>
             <td class="d-flex justify-content-around">
-              <a href="javascript:;" title="Sửa" onclick=""><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
-              <a href="javascript:;" title="Xóa" onclick=""><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
+              <a href="javascript:;" title="Sửa" onclick="address.edit(${data.id},'${data.address}')"><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
+              <a href="javascript:;" title="Xóa" onclick="address.delete(${data.id})"><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
             </td>
         </tr>
         <tr>
@@ -150,8 +138,8 @@
                   <a href="javascript:;" class="text-decoration-none" onclick=district.detail(${value.id})>${value.district}</a></td>
                 </td>
                 <td class="d-flex justify-content-around">
-                  <a href="javascript:;" title="Sửa" onclick=""><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
-                  <a href="javascript:;" title="Xóa" onclick=""><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
+                  <a href="javascript:;" title="Sửa" onclick="district.edit(${value.id},'${value.district}')"><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
+                  <a href="javascript:;" title="Xóa" onclick="district.delete(${value.id})"><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
                 </td>
             </tr>
            `);
@@ -161,34 +149,68 @@
     });
   }
 
+  address.edit = function(id,addressName){
+    $('#nameEdit').val(addressName);
+    $('#idHidden').val(id);
+    $('.districtSave').hide();
+    $('#editAddress').modal('show');
+  }
+
+  address.save = function(){
+    $.ajax({
+      method: "PUT",
+      url: "{{ route('address.update') }}",
+      data: {
+        id: $('#idHidden').val(),
+        address: $('#nameEdit').val(),
+      },
+      dataType: "json",
+      success: function (data) {
+        $('#editAddress').modal('hide');
+        address.showAll();
+        toastr["success"]("Thay đổi thành công !");
+      }
+    });
+  }
+
+  address.delete = function(id){
+    bootbox.confirm({
+        message: "Bạn muốn xóa ?",
+        buttons: {
+        confirm: {
+            abel: 'CÓ',
+            className: 'btn-success'
+        },
+        cancel: {
+            label: 'KHÔNG',
+            className: 'btn-danger'
+        }
+    },
+    callback: function (result) {
+    if(result){
+      $.ajax({
+      type: "DELETE",
+      url: "{{ route('address.destroy') }}",
+      data: {
+        id: id,
+      },
+      dataType: "json",
+      success: function (response) {
+        address.showAll();
+        toastr["warning"]("Đã xóa!");
+      }
+    });
+    
+        }
+    }
+    
+  });
+  }
   address.showAll = function(){
     address.get();
     district.get();
   }
 
-  address.create = function(){
-    console.log($('#inputDistrict').val());
-    if($('#addressId').val() == 0){
-      $.ajax({                                    //create address
-        type: "POST",
-        url: "{{ route('address.create') }}",
-        data: {
-          address: $('#inputAddress').val()
-        },
-        dataType: "json",
-        success: function (data) {
-          console.log(data);
-          if($('#inputDistrict').val()){                        //create district
-            district.save(data.id);
-          }else{
-            address.showAll();
-            $('#editAddress').modal('hide');
-            toastr["success"]("Thêm thành công !");
-          }
-        }
-      });
-    }
-  }
 // jquery district
   var district = district || {};
   district.get = function(){
@@ -208,8 +230,8 @@
                         <td >
                           <a href="javascript:;" class="text-decoration-none" onclick=district.detail(${value.id})>${value.district}</a></td>
                         <td class="d-flex justify-content-around">
-                          <a href="javascript:;" title="Sửa" onclick=""><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
-                          <a href="javascript:;" title="Xóa" onclick=""><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
+                          <a href="javascript:;" title="Sửa" onclick="district.edit(${value.id},'${value.district}')"><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
+                          <a href="javascript:;" title="Xóa" onclick="district.delete(${value.id})"><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
                         </td>
                       </tr>
                      `);
@@ -243,8 +265,8 @@
           <td >
             <a href="javascript:;" class="text-decoration-none" onclick=district.detail(${data.id})>${data.district}</a></td>
           <td class="d-flex justify-content-around">
-              <a href="javascript:;" title="Sửa" onclick=""><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
-              <a href="javascript:;" title="Xóa" onclick=""><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
+              <a href="javascript:;" title="Sửa" onclick="district.edit(${data.id},'${data.district}')"><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
+              <a href="javascript:;" title="Xóa" onclick="district.delete(${data.id})"><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
             </td>
           </tr>
           <tr>
@@ -259,12 +281,9 @@
             <td >
               <a href="javascript:;" class="text-decoration-none" onclick=address.detail(${data.address.id})>${data.address.address}</a>
             </td>
-            <td>
-              <a href="javascript:;" title="Thêm huyện" onclick="district.modalShow(${data.address.id},${data.address.address})"><i class="fas fa-lg fa-map-marked-alt text-primary"></i></a>                       
-            </td>
             <td class="d-flex justify-content-around">
-              <a href="javascript:;" title="Sửa" onclick=""><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
-              <a href="javascript:;" title="Xóa" onclick=""><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
+              <a href="javascript:;" title="Sửa" onclick="address.edit(${data.address.id},'${data.address.address}')"><i class="fas fa-pencil-alt fa-lg text-success"></i></a>
+              <a href="javascript:;" title="Xóa" onclick="address.delete(${data.address.id})"><i class="far fa-trash-alt  fa-lg text-danger"></i></a> 
             </td>
         </tr>
         <tr>
@@ -277,31 +296,63 @@
     });
   }
 
-  district.modalShow = function(id, addressName){
-    $('#inputAddress').val(addressName);
-    $('#inputAddress').attr("disabled", true);
-    $('#addressId').val(id);
+  district.edit = function(id,districtName){
+    $('#nameEdit').val(districtName);
+    $('#idHidden').val(id);
+    $('.addressSave').hide();
     $('#editAddress').modal('show');
   }
 
-  district.create = function(id){
+  district.save = function(){
     $.ajax({
-      type: "POST",
-      url: "{{ route('district.create') }}",
+      method: "PUT",
+      url: "{{ route('district.update') }}",
       data: {
-          id: id,
-          district: $('#inputDistrict').val(),
+        id: $('#idHidden').val(),
+        district: $('#nameEdit').val(),
       },
       dataType: "json",
       success: function (data) {
-        address.showAll();
         $('#editAddress').modal('hide');
-        toastr["success"]("Thêm thành công !");
+        address.showAll();
+        toastr["success"]("Thay đổi thành công !");
       }
     });
   }
 
-
+  district.delete = function(id){
+    bootbox.confirm({
+        message: "Bạn muốn xóa ?",
+        buttons: {
+        confirm: {
+            abel: 'CÓ',
+            className: 'btn-success'
+        },
+        cancel: {
+            label: 'KHÔNG',
+            className: 'btn-danger'
+        }
+    },
+    callback: function (result) {
+    if(result){
+      $.ajax({
+      type: "DELETE",
+      url: "{{ route('district.destroy') }}",
+      data: {
+        id: id,
+      },
+      dataType: "json",
+      success: function (response) {
+        address.showAll();
+        toastr["warning"]("Đã xóa!");
+      }
+    });
+    
+        }
+    }
+    
+  });
+  }
   $(document).ready( function () {   
     address.get();
     district.get();

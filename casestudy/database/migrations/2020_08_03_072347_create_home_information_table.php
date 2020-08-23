@@ -18,7 +18,7 @@ class CreateHomeInformationTable extends Migration
             $table->string('area');
             $table->string('title');
             $table->longText('description');
-            $table->integer('home_photo_id')->unsigned();
+            $table->integer('house_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

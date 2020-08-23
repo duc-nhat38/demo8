@@ -7,7 +7,7 @@ use App\Repositories\BannerRepositoryInterface;
 use Illuminate\Http\Request;
 
 class BannerImageController extends Controller
-{   
+{
     protected $bannerRepository;
 
     public function __construct(BannerRepositoryInterface $bannerRepositoryInterface)
@@ -26,15 +26,6 @@ class BannerImageController extends Controller
         return response()->json($banners, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,17 +56,6 @@ class BannerImageController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\BannerImage  $bannerImage
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BannerImage $bannerImage)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -102,5 +82,12 @@ class BannerImageController extends Controller
         $banner = $this->bannerRepository->destroy($id);
 
         return response()->json($banner);
+    }
+
+    public function bannerSlide()
+    {
+        $bannerImage = $this->bannerRepository->bannerSlide();
+
+        return response()->json($bannerImage, 200);
     }
 }

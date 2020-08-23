@@ -15,12 +15,10 @@ class DatabaseSeeder extends Seeder
         $this->call(AddressDetailsSeeder::class);        
         $this->call(UserSeeder::class);
         $this->call(UserInformationSeeder::class);
-        $this->call(BusinessTypeImageSeeder::class);
-        $this->call(HouseTypeSeeder::class);
-        $this->call(HomePhotoSeeder::class);
-        $this->call(HomeInformationSeeder::class);
-        
-        $this->call(HouseSeeder::class);       
+        $this->call(BusinessTypeImageSeeder::class);     
+        $this->call(HouseSeeder::class); 
+        $this->call(HomeInformationSeeder::class);   
+        $this->call(HomePhotoSeeder::class);   
         $this->call(CommentSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(VoteSeeder::class);

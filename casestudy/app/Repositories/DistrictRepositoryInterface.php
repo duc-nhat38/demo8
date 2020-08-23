@@ -8,5 +8,7 @@ interface DistrictRepositoryInterface
 
     public function show($id);
 
-    public function create(Array $array);
+    public function update(Array $array);
+
+    public function destroy($id);
 }

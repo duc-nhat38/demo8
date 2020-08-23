@@ -8,5 +8,9 @@ interface AddressRepositoryInterface
 
     public function show($id);
 
-    public function create( array $array);
+    public function update(array $array);
+
+    public function destroy($id);
+
+    public function getAddressAll();
 }

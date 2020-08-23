@@ -26,65 +26,12 @@ class AddressController extends Controller
         return response()->json($address, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $attribute = $request->all();
-        $address = $this->addressRepository->create($attribute);
+        $address = $this->addressRepository->update($attribute);
 
         return response()->json($address, 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        $id = $request->id;
-        $districts = $this->addressRepository->show($id);
-
-        return response()->json($districts, 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Address $address)
-    {
-        //
     }
 
     /**
@@ -93,8 +40,23 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Address $address)
+    public function destroy(Request $request)
     {
-        //
+       $id = $request->id;
+       $address = $this->addressRepository->destroy($id);
+
+       return response()->json($address, 200);
+    }
+    public function show(Request $request){
+        $id = $request->id;
+        $districts = $this->addressRepository->show($id);
+
+        return response()->json($districts, 200);
+    }
+
+    public function getAddressAll(){
+        $addresses = $this->addressRepository->getAddressAll();
+
+        return response()->json($addresses, 200);
     }
 }

@@ -59,4 +59,10 @@ class BannerImageRepository implements BannerRepositoryInterface
     {
         BannerImage::where('id', $id)->delete();
     }
+
+    public function bannerSlide(){
+        $bannerImage = BannerImage::select('id', 'title', 'imageAddress')->where('show', 1)->get();
+
+        return $bannerImage;
+    }
 }

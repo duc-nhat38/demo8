@@ -18,7 +18,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Comment', 'user_id', 'id');
     }
 
-    public function house()
+    public function houses()
     {
         return $this->hasMany('App\Models\House', 'user_id', 'id');
     }

@@ -11,10 +11,8 @@ class HomeInformation extends Model
     protected $guarded = [];
 
     public function house(){
-        return $this->hasOne('App\Models\House', 'home_information_id', 'id');
+        return $this->belongsTo('App\Models\House', 'house_id', 'id');
     }
 
-    public function photos(){
-        return $this->hasMany('App\Models\HomePhoto', 'home_photo_id', 'id');
-    }
+    
 }

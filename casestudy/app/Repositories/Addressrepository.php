@@ -21,10 +21,26 @@ class AddressRepository implements AddressRepositoryInterface
         return $district[0];
     }
 
-    public function create(array $array)
+    public function update(array $array)
     {
-        $address = Address::create(['address' => $array['address']]);
+        $address = Address::findOrFail($array['id']);
+        $address->update(['address' => $array['address']]);
 
         return $address;
+    }
+
+    public function destroy($id)
+    {
+        $address = Address::findOrFail($id);
+        $address->delete();
+        $address->addressDetails()->delete();
+
+        return $address;
+    }
+
+    public function getAddressAll(){
+        $addresses = Address::with('addressDetails')->get();
+
+        return $addresses;
     }
 }

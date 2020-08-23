@@ -15,7 +15,7 @@ class CreateAddressDetailsTable extends Migration
     {
         Schema::create('districts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('address');
+            $table->string('district');
             $table->integer('address_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

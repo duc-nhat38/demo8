@@ -22,7 +22,7 @@ class House extends Model
 
     public function information()
     {
-        return $this->belongsTo('App\Models\HomeInformation', 'home_information_id', 'id');
+        return $this->hasOne('App\Models\HomeInformation', 'house_id', 'id');
     }
 
     public function user()
@@ -43,5 +43,8 @@ class House extends Model
     public function address()
     {
         return $this->belongsTo('App\Models\District', 'districts_id', 'id');
+    }
+    public function photos(){
+        return $this->hasMany('App\Models\HomePhoto', 'house_id', 'id');
     }
 }

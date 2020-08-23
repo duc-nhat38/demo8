@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vote extends Model
 {
+    protected $guarded = [];
     public function house(){
         return $this->belongsToMany('App\Models\House', 'house_id', 'id');
     }

@@ -10,5 +10,6 @@ $factory->define(HomePhoto::class, function (Faker $faker) {
     return [
         'title' => $faker->realText($maxNbChars = 15, $indexSize = 2),
         'photoAddress' => $faker->imageUrl($width = 500, $height = 300),
+        'house_id' => $faker->numberBetween($min=1, $max=20),
     ];
 });

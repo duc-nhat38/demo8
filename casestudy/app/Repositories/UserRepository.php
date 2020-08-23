@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\UserInformation;
 use App\User;
 use App\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\File;
 
 
 class UserRepository implements UserRepositoryInterface
@@ -12,32 +13,50 @@ class UserRepository implements UserRepositoryInterface
 
     public function all()
     {
-        $users = User::select('users.*',
-        'user_information.avatar',
-        'user_information.role',
-        'user_information.locked')
-        ->join('user_information', 'users.id', '=', 'user_information.user_id')
-        ->where('users.isAdmin', 0)
+        $users = User::select(
+            'users.*',
+            'user_information.avatar',
+            'user_information.role',
+            'user_information.locked'
+        )
+            ->join('user_information', 'users.id', '=', 'user_information.user_id')
+            ->where('users.isAdmin', 0)
             ->get();
 
         return $users;
     }
 
+    public function update(array $array)
+    {
+        $user = User::where('id', $array['id'])->update([
+            'name' =>  $array['name'],
+            'email' =>  $array['email']
+        ]);
+        $userInfo = UserInformation::where('user_id', $array['id'])->update([
+            'fullName' => $array['fullName'],
+            'phone' => $array['phone'],
+            'address' => $array['address'],
+        ]);
+
+        return true;
+    }
+
     public function show($id)
     {
-        $user = User::select('users.*',
-         'user_information.fullName', 
-         'user_information.phone',  
-         'user_information.address', 
-         'user_information.gender',
-         'user_information.role',
-         'user_information.locked',
-         'user_information.avatar')
+        $user = User::select(
+            'users.*',
+            'user_information.fullName',
+            'user_information.phone',
+            'user_information.address',
+            'user_information.role',
+            'user_information.locked',
+            'user_information.avatar'
+        )
             ->join('user_information', 'users.id', '=', 'user_information.user_id')
             ->where('users.id', $id)
             ->get();
 
-        return $user;
+        return $user[0];
     }
 
     public function lock($userId)
@@ -76,5 +95,47 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public function getHouses($id)
+    {
+        $houses = User::findOrFail($id)->with('houses')->get();
 
+        return $houses;
+    }
+
+    public function getUser($id)
+    {
+        $user = User::select(
+            'users.id',
+            'users.name',
+            'users.created_at',
+            'user_information.phone',
+            'user_information.address',
+            'user_information.role',
+            'user_information.avatar'
+        )
+            ->join('user_information', 'users.id', '=', 'user_information.user_id')
+            ->where('users.id', $id)
+            ->first();
+        $user['day_create'] = $user['created_at']->format('d-m-Y');
+
+        return $user;
+    }
+
+    public function updateAvatar($data)
+    {
+        $user = UserInformation::where('user_id', $data['id'])->first();
+        if ($user['avatar'] != 'avatar.jpg') {
+            $file_path = base_path().'/public/uploads/'. $user['avatar'];
+            if (File::exists($file_path)){
+                File::delete($file_path);
+            }
+        }
+        $fileName = time() . rand() . '.' . $data['inputAvatar']->getClientOriginalExtension();
+        $data['inputAvatar']->move(public_path('uploads'), $fileName);
+        $user->update([
+            'avatar' => $fileName
+        ]);
+
+        return true;
+    }
 }

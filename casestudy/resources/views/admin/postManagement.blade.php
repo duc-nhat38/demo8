@@ -191,7 +191,7 @@ post.save = function(){
         success: function(data){
             $('#editPost').modal('hide');
             post.get();
-            toastr["success"]("Thay đổi thành công !");
+            toastr["success"]("Thêm thành công !");
         }
     });
 }

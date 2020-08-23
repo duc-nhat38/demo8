@@ -17,6 +17,7 @@ class CreateHomePhotosTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('photoAddress');
+            $table->integer('house_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });

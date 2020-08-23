@@ -15,13 +15,13 @@ class CreateHousesTable extends Migration
     {
         Schema::create('houses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('house_type_id')->unsigned();    
+            $table->integer('user_id')->unsigned();    
             $table->integer('district_id')->unsigned();   
-            $table->integer('home_information_id')->unsigned();
             $table->integer('business_type_id')->unsigned();     
-            $table->string('price');
+            $table->integer('price');
+            $table->integer('view')->default(0);
             $table->string('expired')->default(0);
+
             $table->timestamps();
             $table->softDeletes();
         });

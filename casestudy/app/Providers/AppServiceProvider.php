@@ -6,8 +6,12 @@ use App\Repositories\AddressRepository;
 use App\Repositories\AddressRepositoryInterface;
 use App\Repositories\BannerImageRepository;
 use App\Repositories\BannerRepositoryInterface;
+use App\Repositories\BusinessRepository;
+use App\Repositories\BusinessRepositoryInterface;
 use App\Repositories\DistrictRepository;
 use App\Repositories\DistrictRepositoryInterface;
+use App\Repositories\HouseRepository;
+use App\Repositories\HouseRepositoryInterface;
 use App\Repositories\PostRepository;
 use App\Repositories\PostRepositoryInterface;
 use App\Repositories\UserRepository;
@@ -38,5 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(DistrictRepositoryInterface::class, DistrictRepository::class);
+        $this->app->bind(BusinessRepositoryInterface::class, BusinessRepository::class);
+        $this->app->bind(HouseRepositoryInterface::class, HouseRepository::class);
     }
 }

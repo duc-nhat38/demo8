@@ -10,7 +10,7 @@ class HomePhoto extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    public function information(){
-        return $this->belongsTo('App\Models\HomeInformation', 'home_photo_id', 'id');
+    public function house(){
+        return $this->belongsTo('App\Models\House', 'house_id', 'id');
     }
 }

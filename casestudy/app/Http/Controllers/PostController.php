@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Repositories\PostRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -62,18 +62,12 @@ class PostController extends Controller
 
         return response()->json($post, 200);
     }
+    public function getPostNews(){
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
+        $postNew = $this->postRepository->getPostNews();
+
+        return response()->json($postNew, 200);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -101,5 +95,22 @@ class PostController extends Controller
         $post = $this->postRepository->destroy($id);
 
         return response()->json($post);
+    }
+    public function postDetail($id){
+             
+        $postKey = 'post_'.$id;
+        if(!Session::has($postKey)){
+            $view = $this->postRepository->view($id);
+            Session::put($postKey, 1);
+        }
+        $post = $this->postRepository->show($id);
+        $postInvolve = $this->postRepository->postRandom();  
+        return view('user.PostDetail', compact(['post', 'postInvolve']));
+    }
+
+    public function all(){
+        $posts = $this->postRepository->all();
+
+        return view('user.PostAll', compact('posts'));
     }
 }

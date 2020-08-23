@@ -16,16 +16,22 @@ class DistrictRepository implements DistrictRepositoryInterface
 
     public function show($id)
     {
-        $address = District::where('id', $id)->with('address')->get();
-
+        $address = District::with('address:id,address')->where('id', $id)->get();
+        // dd($address);
         return $address[0];
     }
-    public function create(array $array)
+    public function update(array $array)
     {
-        foreach ($array[1] as $district) {
-                $district = District::create(['address_id' => $array[0], 'district' => $district]);
-        }
+        $district = District::findOrFail($array['id']);
+        $district->update(['district' => $array['district']]);
 
-        return $array[1];
+        return $district;
+    }
+    public function destroy($id)
+    {
+        $district = District::findOrFail($id);
+        $district->delete();
+
+        return $district;
     }
 }

@@ -13,8 +13,11 @@ class UpdateForeignkeyHomeInformation extends Migration
      */
     public function up()
     {
+        Schema::table('home_photos', function (Blueprint $table) {
+            $table->foreign('house_id')->references('id')->on('houses');
+        });
         Schema::table('home_information', function (Blueprint $table) {
-            $table->foreign('home_photo_id')->references('id')->on('home_photos');
+            $table->foreign('house_id')->references('id')->on('houses');
         });
     }
 
@@ -25,6 +28,9 @@ class UpdateForeignkeyHomeInformation extends Migration
      */
     public function down()
     {
+        Schema::table('home_photos', function (Blueprint $table) {
+            //
+        });
         Schema::table('home_information', function (Blueprint $table) {
             //
         });
