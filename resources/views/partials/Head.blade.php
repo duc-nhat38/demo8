@@ -1,7 +1,7 @@
 {{-- boostrap css --}}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 {{-- user css --}}
-<link rel="stylesheet" href="{{ asset('css/user-css.css') }}">
+<link rel="stylesheet" href="/css/user-css.css">
 {{-- select2 --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 {{-- toastr --}}
