@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\File;
 
 class PostRepository implements PostRepositoryInterface
 {
@@ -11,9 +12,11 @@ class PostRepository implements PostRepositoryInterface
         $posts = Post::select('posts.*', 'users.name')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->get();
         foreach($posts as $post){
+            
             $post['day_create'] = $post['created_at']->format('H:m d-m-Y');
+            $post['day_create'] = $post['updated_at']->format('H:m d-m-Y');
         }
 
         return $posts;
@@ -27,30 +30,38 @@ class PostRepository implements PostRepositoryInterface
     }
 
     public function update(array $array)
-    {
+    {   
         $post = Post::findOrFail($array['id']);
-        $post->title = $array['title'];
-        $post->content = $array['content'];
-        $post->user_id = $array['user_id'];
-        $post->coverImage = $array['coverImage'];
-        $post->save();
-
+        $file_path = public_path('uploads/images/posts' . '/' . $post['coverImage']);
+        if (File::exists($file_path)) {
+            File::delete($file_path);
+        }
+        $fileName = time() . rand() . '.' . $array['imageUpload']->getClientOriginalExtension();
+        $post->update([
+            'title' => $array['titlePost'],
+                'content' =>  $array['content'],
+                'user_id' => $array['user_id'],
+                'coverImage' => $fileName,
+        ]);
+        $array['imageUpload']->move(public_path("uploads/images/posts"), $fileName);
         return $post;
     }
     public function destroy($id)
     {
-        Post::where('id', $id)->delete();
+       return Post::where('id', $id)->delete();
+        
     }
 
     public function create(array $array)
-    {
-        $post = new Post();
-        $post->title = $array['title'];
-        $post->content = $array['content'];
-        $post->user_id = $array['user_id'];
-        $post->coverImage = $array['coverImage'];
-        $post->save();
-
+    {  
+        $fileName = time() . rand() . '.' . $array['imageUpload']->getClientOriginalExtension();
+        $post = Post::create([
+                'title' => $array['titlePost'],
+                'content' =>  $array['content'],
+                'user_id' => $array['user_id'],
+                'coverImage' => $fileName,
+            ]);
+        $array['imageUpload']->move(public_path("uploads/images/posts"), $fileName);
         return $post;
     }
     public function getPostNews()

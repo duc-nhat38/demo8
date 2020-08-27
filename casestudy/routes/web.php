@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user-information/{id}', 'UserController@userInformation')->name('user.information');
 
     Route::post('/house-create', 'HouseController@store')->name('house.create');
+    
+    Route::post('/house-update', 'HouseController@update')->name('house.update');
 
 });
 

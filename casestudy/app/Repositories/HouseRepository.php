@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\House;
 use App\Models\Vote;
 use App\Repositories\HouseRepositoryInterface;
+use Illuminate\Support\Facades\File;
+use DateTime;
 
 class HouseRepository implements HouseRepositoryInterface
 {
@@ -28,7 +30,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -40,13 +42,18 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($houses as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
+          
         }
 
         return $houses;
     }
     public function create(array $array)
-    {
+    {   
         $house = House::create([
             'user_id' => $array['user_id'],
             'business_type_id' => $array['inputBusiness'],
@@ -60,16 +67,58 @@ class HouseRepository implements HouseRepositoryInterface
             'house_id' =>  $house->id,
         ]);
 
-        foreach ($array['inputFile'] as $photo) {
-            $fileName = time() . rand() . '.' . $photo->getClientOriginalExtension();
-            $photo->move(public_path('uploads'), $fileName);
+        foreach ($array['inputFile'] as $image) {
+            $fileName = time() . rand() . '.' . $image->getClientOriginalExtension();
+            
             $photo = HomePhoto::create([
                 'photoAddress' => $fileName,
                 'house_id' =>  $house->id,
             ]);
+            $image->move(public_path("uploads/images/houses/house-$house->id"), $fileName);
         }
 
         return true;
+    }
+
+    public function update($data){
+        $house = House::findOrFail($data['houseIdHidden']);
+        $house->update([
+            'user_id' => $data['user_id'],
+            'business_type_id' => $data['inputEditBusiness'],
+            'price' => $data['inputEditPrice'],
+            'district_id' => $data['inputEditDistrict'],
+        ]);
+        $houseInfo = HomeInformation::where('house_id',$house->id)->first();
+        $houseInfo->update([
+            'area' => $data['inputEditArea'],
+            'title' => $data['inputEditTitle'],
+            'description' => $data['inputEditDescription'],
+        ]);
+        if($data['photoIdDelete'] != null){
+            $listPhotoDelete = explode(',', $data['photoIdDelete']);
+            foreach($listPhotoDelete as $value){
+                $photoDelete = HomePhoto::findOrFail($value);
+                $file_path = public_path("uploads/images/houses/house-$house->id" . '/' . $photoDelete['photoAddress']);
+                if (File::exists($file_path)) {
+                    File::delete($file_path);
+                }
+                $photoDelete->delete();
+            }
+        }
+        if(isset($data['inputEditFile'])){
+            foreach ($data['inputEditFile'] as $image) {
+                $fileName = time() . rand() . '.' . $image->getClientOriginalExtension();
+                
+                $photo = HomePhoto::create([
+                    'photoAddress' => $fileName,
+                    'house_id' =>  $house->id,
+                ]);;
+                $image->move(public_path("uploads/images/houses/house-$house->id"), $fileName);
+            }
+        }
+
+        return true;
+        
     }
 
     public function show($id)
@@ -89,7 +138,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -99,7 +148,11 @@ class HouseRepository implements HouseRepositoryInterface
             ->where('houses.id', $id)
             ->first();
             $house['photos'] = HomePhoto::where('house_id', $house['id'])->get();
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
             
         return $house;
     }
@@ -212,7 +265,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -225,7 +278,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($businessHouse as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $businessHouse;
@@ -256,7 +313,7 @@ class HouseRepository implements HouseRepositoryInterface
                 break;
             case '6':
                 $start = 100;
-                $end = 500;
+                $end = 1000;
                 break;
         }
         $searchHouseAll = House::select(
@@ -273,7 +330,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -288,7 +345,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($searchHouseAll as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $searchHouseAll;
@@ -311,7 +372,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -325,7 +386,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($searchHouseAll as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $searchHouseAll;
@@ -373,7 +438,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -388,7 +453,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($searchByTypeAndAddressAndArea as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $searchByTypeAndAddressAndArea;
@@ -410,7 +479,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -424,7 +493,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($searchByTypeAndDistrict as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $searchByTypeAndDistrict;
@@ -446,7 +519,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -459,7 +532,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($houses as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $houses;
@@ -481,7 +558,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -494,7 +571,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($houses as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
         }
 
         return $houses;
@@ -516,7 +597,7 @@ class HouseRepository implements HouseRepositoryInterface
             'business_types.typeName AS businessName',
             'houses.price',
             'houses.view',
-            'houses.expired',
+            
             'houses.created_at'
         )->join('users', 'users.id', '=', 'houses.user_id')
             ->join('districts', 'districts.id', '=', 'houses.district_id')
@@ -529,7 +610,11 @@ class HouseRepository implements HouseRepositoryInterface
         foreach ($houses as $house) {
             $photo = HomePhoto::where('house_id', $house['id'])->first();
             $house->photo = $photo['photoAddress'];
-            $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            if ($house['created_at']!==null) {
+                $house['day_create'] = $house['created_at']->format('H:m d-m-Y');
+            } else {
+                $house['day_create']= new DateTime();
+            }
             
         }
 

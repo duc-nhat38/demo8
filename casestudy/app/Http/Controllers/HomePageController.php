@@ -6,6 +6,7 @@ use App\Repositories\PostRepositoryInterface;
 use App\Repositories\HouseRepositoryInterface;
 use Illuminate\Http\Request;
 
+
 class HomePageController extends Controller
 {
     protected $houseRepository;
@@ -22,7 +23,7 @@ class HomePageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $houses = $this->houseRepository->all();
         $posts = $this->postRepository->getPostNews();
 

@@ -14,12 +14,12 @@
                 </ol>
                 <div class="carousel-inner" id="slideShowImage">
                     <div class="carousel-item active" data-interval="3000">
-                        <img src="{{ asset('uploads/'.$house['photos'][0]['photoAddress']) }}" class="d-block w-100"
+                        <img src="{{ asset('uploads/images/houses/house-'.$house["id"].'/'.$house['photos'][0]['photoAddress']) }}" class="d-block w-100"
                             alt="...">
                     </div>
                     @for ($i = 1; $i < count($house['photos']); $i++) 
                     <div class="carousel-item" data-interval="3000">
-                        <img src="{{ asset('uploads/'.$house['photos'][$i]['photoAddress']) }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('uploads/images/houses/house-'.$house["id"].'/'.$house['photos'][$i]['photoAddress']) }}" class="d-block w-100" alt="...">
                     </div>
                     @endfor
             </div>
@@ -94,8 +94,14 @@
                 <h6>Nhận xét :</h6>
                 <div class="d-flex p-2 my-2 border rounded">
                     <div class="col-1 p-0 d-flex align-items-center">
-                        <img src="{{ asset('uploads/'.Auth::user()->information->avatar) }}" alt="avatar"
-                            class="rounded-circle">
+                        @if (Auth::check())
+                        <img src="{{ asset('uploads/images/users/user-'.Auth::user()->id.'/'.Auth::user()->information->avatar) }}" alt="avatar"
+                        class="rounded-circle">
+                        @else
+                        <img src="{{ asset('uploads/images/avatar.jpg') }}" alt="avatar"
+                        class="rounded-circle">
+                        @endif
+                        
                     </div>
                     <div class="col-11 ml-1 d-flex">
                         <textarea class="form-control" id="myComment" rows="1" placeholder="Thêm bình luận ..."
@@ -137,10 +143,10 @@
                     
                     <div class="d-flex row ">
                     <div class="col-2 d-flex align-items-center">
-                        <img src="{{ asset('uploads/${data.avatar}') }}" alt="" class="rounded-circle image-center">
+                        <img src="{{ asset('uploads/images/users/user-${data.id}/${data.avatar}') }}" alt="" class="rounded-circle image-center">
                     </div>
                     <div class="p-2 col-9">
-                        <p><a href="">${data.name}</a>  <i class="fas fa-check-circle ${role}"></i></p>
+                        <p><a href="/user/${data.id}">${data.name}</a>  <i class="fas fa-check-circle ${role}"></i></p>
                         <div class="d-flex justify-content-between">
                             <span class="border rounded border-warning p-2 text-decoration-none"><a href="mailto:${data.email}"><i class="far fa-envelope"></i> ${data.email}</a></span>
                             <span class="border rounded border-warning p-2 text-decoration-none"><a href="tel:+84${phone}"><i class="fas fa-mobile-alt"></i> ${phone}</a></span>
@@ -161,7 +167,7 @@
                     id: $('#commentHouse').attr('data-id'),
                 },
                 dataType: "json",
-                success: function (data) {     
+                success: function (data) {   
                     $('#listComment').empty();       
                     $.each(data, function (i, value) {
                         let id = $('#btnComment').data('id');
@@ -178,11 +184,11 @@
                         $('#listComment').append(`
                             <div class="d-flex p-2 my-2 border rounded position-relative">
                                 <div class="col-1 p-0 d-flex align-items-center">
-                                    <img src="{{ asset('uploads/${value.avatar}') }}" alt="" class="rounded-circle">
+                                    <img src="{{ asset('uploads/images/users/user-${value.user_id}/${value.avatar}') }}" alt="" class="rounded-circle">
                                 </div>
                                 <div class="col-11 ml-1 pl-4 content-comment" data-id="${value.id}">
                                     <div class="d-flex justify-content-between">
-                                        <span><a href="">${value.name}</a></span>
+                                        <span><a href="/user/${value.id}">${value.name}</a></span>
                                         ${action}
                                     </div>
                                     <span class="valueContent">${value.content}</span><br>
@@ -239,7 +245,6 @@
         }
 
         comment.editComment = function(data){
-            console.log();
             let content = $('#editComment').val();
             if(content){
             $.ajax({

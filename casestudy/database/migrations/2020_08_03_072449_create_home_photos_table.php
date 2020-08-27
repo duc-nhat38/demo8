@@ -15,7 +15,6 @@ class CreateHomePhotosTable extends Migration
     {
         Schema::create('home_photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
             $table->string('photoAddress');
             $table->integer('house_id')->unsigned();
             $table->timestamps();

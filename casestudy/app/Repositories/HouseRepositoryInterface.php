@@ -44,5 +44,7 @@ interface HouseRepositoryInterface {
     public function getHouseInUser($id);
 
     public function houseDelete($id);
+
+    public function update($data);
 }
 ?>

@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class RegisterController extends Controller
 {
@@ -72,9 +73,16 @@ class RegisterController extends Controller
         ]);
 
         UserInformation::create([
-            "user_id" => $user->id
+            "user_id" => $user->id,
+            "avatar" => 'avatar.jpg'
         ]);
-
+        $file = public_path("uploads/images/avatar.jpg");
+        if(!File::exists(public_path("uploads/images/users/user-$user->id"))){
+            File::makeDirectory(public_path("uploads/images/users/user-$user->id"), $mode = 0777 , true, true);
+        }
+        $newFile = public_path("uploads/images/users/user-$user->id/avatar.jpg");
+        File::copy($file, $newFile);
+       
         return $user;
     }
 }

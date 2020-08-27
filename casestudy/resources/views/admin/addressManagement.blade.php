@@ -1,8 +1,8 @@
 @extends('layouts.Admin')
 
 @section('content')
-<p class="display-4 text-center">Quản lý Tỉnh , huyện </p>
-<div class="address row justify-content-between mt-3">
+<p class="display-4 text-center">Quản lý Tỉnh , Huyện </p>
+<div class="address row justify-content-between mt-5">
   <div class="col">
     <table class="table mr-1 table-hover text-md-center" id="tableAdd">
       <thead class="thead-dark">

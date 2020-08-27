@@ -14,6 +14,7 @@
                     <th scope="col">Đối tác</th>
                     <th scope="col">NV đăng</th>
                     <th scope="col">Ngày hết hạn</th>
+                    <th scope="col">Đang chiếu</th>
                     <th scope="col">Sửa / Xóa</th>
                 </tr>
             </thead>
@@ -21,16 +22,6 @@
 
             </tbody>
         </table>
-    </div>
-    <div class="d-flex flex-wrap mt-2" id="showBanner">
-        <div class="position-relative border">
-            <p class="display-4 text-center">Thêm</p>
-            <a href="javascript:;" title="Thêm"
-                class="text-center rounded-circle button-banner position-absolute border" type="button">
-                <i class="fas fa-plus"></i>
-            </a>
-        </div>
-
     </div>
 </div>
 {{-- modal --}}
@@ -61,44 +52,29 @@
     //    jquery ajax banner dashboard
     var banner = banner || {}; 
 
-   banner.get = function(){
+    banner.get = function(){
     
         $.ajax({
                 method: "GET",
                 dataType: "json",
                 url: '{{ route("get.banners") }}',
                 success: function (data){
+                    console.log(data);
+                    if ($.fn.DataTable.isDataTable('#tableBanner') ) {
+                        $('#tableBanner').DataTable().destroy();
+                    }
                     $('#tableBanner tbody').empty();
-                    $('#showBanner').empty();
-                    $('#showBanner').append(`
-                        <div class="position-relative border">
-                            <p class="display-4 text-center">Thêm</p>
-                            <a href="javascript:;" title="Thêm" class=" text-center rounded-circle button-banner position-absolute border" type="button">
-                            <i class="fas fa-plus"></i>
-                            </a>
-                        </div>
-                    `);
+                    
                     $.each(data, function (i, item) {
-                        // if(item.show == 1){
-                        //     $('#showBanner').prepend(`
-                        //     <div class="position-relative">
-                        //         <img src="${item.imageAddress}" alt="" class="mh-100 w-100 img-thumbnail">
-                        //         <a href="javascript:;" title="Thay đổi" class="text-center rounded-circle button-banner position-absolute border" onclick="">
-                        //             <i class="fas fa-plus text-white"></i>
-                        //         </a>
-                        //     </div>
-                            
-                        // `);
-                        // }
-                        
                         $('#tableBanner tbody').append(`                       
                         <tr>
                             <td scope="row">${i+1}</td>
-                            <td><img src="${item.imageAddress}" class=""></td>
-                            <td>${item.title}</td>
-                            <td>${item.partner}</td>                            
+                            <td><img src="{{ asset('uploads/images/banners/${item.imageAddress}') }}" class=""></td>
+                            <td data-toggle="title" title="${item.title}">${(item.title).substr(0,10)}...</td>
+                            <td data-toggle="partner" title="${item.partner}">${(item.partner).substr(0, 10)}...</td>                            
                             <td>${item.name}</td>
                             <td>${item.expirationDate}</td>
+                            <td>${(item.show == 1) ? '<i class="fas fa-check text-success fa-lg"></i>':'<i class="fas fa-times text-danger fa-lg"></i>'}</td>
                             <td>
                                 <a href="javascript:;"  title="Sửa" onclick="banner.store(${item.id})" class="btn"><i class="fas fa-pencil-alt text-success fa-lg"></i></a>
                                 <a href="javascript:;"  title="Xóa" onclick="banner.delete(${item.id})" class="btn"><i class="far fa-trash-alt  text-danger fa-lg"></i></a>
@@ -108,46 +84,47 @@
                         
                     });
                     $('#tableBanner').DataTable();
-                   
                 }
         });
    }
 
-//     banner.show = function(){
-//         closed();
-//        $('#banner').show();
-//    }
-
    banner.formModal = function(){
         $('.modal-show').empty();
         $('.modal-show').append(`
-            <form class="modalForm">
+            <form class="modalForm" id="formAdBanner" enctype="multipart/form-data">
                 <div class="form-group">
                 <label for="title">Tiêu đề :</label>
-                <input type="text" class="form-control" id="titleBanner" placeholder="Nhập tiêu đề ....">
+                <input type="text" class="form-control" id="titleBanner" name='titleBanner' placeholder="Nhập tiêu đề ...." 
+                data-rule-required='true' data-msg-required="Tiêu đề không được để trống"
+                data-rule-maxlength='200' data-msg-maxlength="Tiêu đề không dài hơn 200 ký tự">
             </div>
             <div class="form-group">
                 <img src="https://dean2020.edu.vn/wp-content/uploads/2018/11/Nha6.jpg" class="img-thumbnail w-100" id="image"><br>
-                <input class="mt-2" type="file" accept="image/*" class="form-control-file" name="fileUpload" id="fileUpload" onchange="banner.showImage(this)">
+                <input class="mt-2" type="file" accept="image/*" class="form-control-file" name="fileUpload" id="fileUpload" onchange="banner.showImage(this)"
+                data-rule-required='true' data-msg-required="Ảnh không được để trống">
             </div>
             <div class="form-group">
                 <label for="namePartner">Tên đối tác :</label>
-                <input type="text" class="form-control" name="namePartner" id="namePartner" placeholder="Tên đối tác...">
+                <input type="text" class="form-control" name="namePartner" id="namePartner" placeholder="Tên đối tác..."
+                data-rule-required='true' data-msg-required="Tên đối tác không được để trống"
+                data-rule-maxlength='200' data-msg-maxlength="Tên đối tác không dài hơn 200 ký tự">
             </div>
             <div class="form-group">
                 <label for="date-input">Thời gian hết hạn :</label>
-                <input type="date" class="form-control" name="date-input" id="date-input" >
+                <input type="date" class="form-control" name="expirationDate" id="date-input" 
+                data-rule-required='true' data-msg-required="Thời gian hết hạn không được để trống">
+                <span><small id="msgErrorDate"></small></span>
             </div>     
             <div class="form-group">
                 <div class="form-check">
-                <input class="form-check-show" type="checkbox" id="gridCheck">
+                <input class="form-check-show" type="checkbox" id="gridCheck" >
                 <label class="form-check-label" for="gridCheck">
                     Show lên trang chính.
                 </label>
                 </div>
             </div>
-            <input type="hidden" value="0" id="hidden">
-            <input type="hidden" value="{{ Auth::user()->id }}" id="user_id">
+            <input type="hidden" value="0" id="hidden" name='id'>
+            <input type="hidden" value="{{ Auth::user()->id }}" id="user_id" name='user_id'>
             </form>
         `);
 
@@ -164,17 +141,17 @@
                     id: bannerId,
                 },
                 success: function (data){
-                    console.log(data);
                     banner.formModal();
                        if(data[0].show == 1){
                             $('#gridCheck').prop('checked', true);
                         }
                         $('#titleBanner').val(data[0].title);
-                        $('#image').attr('src', data[0].imageAddress);
+                        $('#image').attr('src', `{{ asset('uploads/images/banners/${data[0].imageAddress}') }}`);
                         $('#namePartner').val(data[0].partner);
                         $('#date-input').val(data[0].expirationDate);
                         $('#hidden').val(data[0].id);
                         $('#exampleModalLongTitle').text('Cập nhật thông tin')
+                        $('#fileUpload').attr('data-rule-required', false);
                 }
         });
     }
@@ -193,85 +170,79 @@
             reader.readAsDataURL(image);
        }     
    }
-
-   banner.save = function(){
-       $('#editAddbanner').modal('hide');
-    let show;
-       if($('#gridCheck:checked').val() == 'on'){
-         show = 1;
-       }else{
-         show = 0;
-       }
-    if($('#hidden').val() != 0){
-        $.ajax({
-            method: "PUT",
-            dataType: "json",
-            url: '{{ route("banner.update") }}',
-            data: {
-                id: $('#hidden').val(),
-                title: $('#titleBanner').val(),
-                imageAddress: $('#image').attr('src'),
-                partner: $('#namePartner').val(),
-                expirationDate: $('#date-input').val(),
-                show: show,
-                user_id: $('#user_id').val(),
-            },
-            success: function (data){
-                banner.get();
-                toastr["success"]("Thay đổi thành công !");
-            }
-        });
-    }else{
-        $.ajax({
-            method: "POST",
-            dataType: "json",
-            url: '{{ route("banner.create") }}',
-            data: {
-                id: $('#hidden').val(),
-                title: $('#titleBanner').val(),
-                imageAddress: $('#image').attr('src'),
-                partner: $('#namePartner').val(),
-                expirationDate: $('#date-input').val(),
-                show: show,
-                user_id: $('#user_id').val(),
-            },
-            success: function (data){
-                banner.get();
-                toastr["success"]("Thay đổi thành công !");
-            }
-        });
-    }
-          
+   banner.checkDay = function(dayIn){
+    var dayIn = $('#date-input').val();
+    var x = new Date(dayIn);
+    var dateObj = new Date();    
+    var month = dateObj.getUTCMonth() + 1;    
+    var day = dateObj.getUTCDate();    
+    var year = dateObj.getUTCFullYear();    
+    newdate = year + "-" + month + "-" + day;   
+     var y = new Date(newdate);
+    if(x < y) {         
+        $('#msgErrorDate').text('Ngày hết hạn không bé hơn ngày hiện tại.');
+        $('#msgErrorDate').show();
+        return false;
+   }else{
+    $('#msgErrorDate').hide();
+        return true;
    }
-    banner.formValidate = function(){
-        $(".modalForm").validate({
-            onfocusout: false,
-            onkeyup: false,
-            onclick: false,
-            rules: {
-                "fileUpload": {
-                    required: true,
-                },
-                "namePartner": {
-                    required: true
-                },
-                "date-input": {
-                    required: true
+   }
+   banner.save = function(){
+       var formBanner = new FormData($('#formAdBanner')[0]);
+       
+        let show;
+        ($('#gridCheck:checked').val() == 'on') ? show = 1 : show = 0;
+        formBanner.append('show', show);
+
+       if($('#formAdBanner').valid()){
+            $('#editAddbanner').modal('hide');
+            if($('#hidden').val() != 0){
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    url: '{{ route("banner.update") }}',
+                    data: formBanner,
+                    contentType: false,
+                    processData: false,
+                    success: function (data){
+                        banner.get();
+                        toastr["success"]("Thay đổi thành công !");
+                    }
+                });
+        }else{
+            var dayIn = $('#date-input').val();
+            var x = new Date(dayIn);
+            var dateObj = new Date();    
+            var month = dateObj.getUTCMonth() + 1;    
+            var day = dateObj.getUTCDate();    
+            var year = dateObj.getUTCFullYear();    
+            newdate = year + "-" + month + "-" + day;   
+            var y = new Date(newdate);
+            if(x < y) {         
+                $('#msgErrorDate').text('Ngày hết hạn không bé hơn ngày hiện tại.');
+                $('#msgErrorDate').show();
+                return false;
+            }else{
+                $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: '{{ route("banner.create") }}',
+                data: formBanner,
+                contentType: false,
+                processData: false,
+                success: function (data){
+                    banner.get();
+                    toastr["success"]("Thay đổi thành công !");
                 }
-            },
-            messages: {
-                "fileUpload": {
-                    required: "Không được để trống"
-                },
-                "namePartner": {
-                    required: "Không được để trống"
-                },
-                "date-input": {
-                    required: "Không được để trống"
-             }
+            });
             }
-        });
+            
+        }
     }
+    
+          
+}
 
     banner.delete = function(id){
         bootbox.confirm({
@@ -309,7 +280,8 @@
     $(document).ready( function () {
     
     banner.get();
-
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="partner"]').tooltip();
     } );
 </script>
 @endpush

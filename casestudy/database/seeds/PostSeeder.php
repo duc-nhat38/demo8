@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PostSeeder extends Seeder
 {
@@ -12,6 +13,24 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        factory(Post::class, 10)->create();
+        DB::table('posts')->insert([
+            [
+                'user_id' => '1',
+                'title' => 'TO LEAVE THE.;',
+                'content' => 'TO LEAVE THE.',
+                'coverImage'=> 'anhnha.jpg',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
+            ],   
+            [
+                'user_id' => '1',
+                'title' => 'TO LEAVE THE.;',
+                'content' => 'TO LEAVE THE.',
+                'coverImage'=> 'anhnha.jpg',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
+            ], 
+            
+        ]);
     }
 }

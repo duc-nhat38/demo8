@@ -4,8 +4,8 @@
 <div class="container pt-5">
     <div class="d-flex w-100 mt-3 bg-white p-3 border rounded">
         <div class="col-4 img-user p-0">
-            <img src="{{ asset('uploads/'.Auth::user()->information->avatar) }}" alt="avatar" class="img-thumbnail"
-                id="avatarUser">
+            <img src="{{ asset('uploads/images/users/user-'.Auth::user()->id.'/'.Auth::user()->information->avatar) }}"
+                alt="avatar" class="img-thumbnail" id="avatarUser">
             <div class="mt-3">
                 <div class="mb-2 w-75">
                     <a href="javascript:;" class="btn btn-warning" onclick="user.openFormUpdateAvatar(this)"
@@ -107,7 +107,8 @@
         <div class="w-100 d-flex flex-wrap">
             @foreach ($listHouseUser as $item)
             <div class="card div-hover p-0 position-relative">
-                <img src="{{  asset('uploads/'.$item["photo"]) }}" class="card-img-top">
+                <img src="{{  asset('uploads/images/houses/house-'.$item["id"].'/'.$item["photo"]) }}"
+                    class="card-img-top">
                 <div class="card-body p-2">
                     <h6><a href="{{ route('house.show', $item['id']) }}"
                             class="text-decoration-none">{{ $item['title'] }}</a></h6>
@@ -123,8 +124,10 @@
                     <span class="card-text"><small class="text-muted">Thời gian :
                             {{ $item['day_create'] }}</small></span>
                     <div class="position-absolute p-1 btn-editHouseUser">
-                        <a href="javascript:;" class="btn btn-danger" data-houseid="{{ $item['id'] }}" onclick="houseDelete(this)"><i class="far fa-trash-alt text-white"></i></a>
-                        <a href="javascript:;" class="btn btn-warning ml-2" data-houseid="{{ $item['id'] }}" onclick="formEditHouseOn(this)"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="javascript:;" class="btn btn-danger" data-houseid="{{ $item['id'] }}"
+                            onclick="houseDelete(this)"><i class="far fa-trash-alt text-white"></i></a>
+                        <a href="javascript:;" class="btn btn-warning ml-2" data-houseid="{{ $item['id'] }}"
+                            onclick="formEditHouseOn(this)"><i class="fas fa-pencil-alt"></i></a>
                     </div>
                 </div>
             </div>
@@ -142,8 +145,99 @@
 
     </div>
 </div>
+{{-- modal form --}}
+<div class="modal fade" id="formEditPostHouse" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa bài đăng</h5>
+                <button type="button" class="close" aria-label="Close" onclick="formEditHouseOff()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditHouse" action="{{ route('house.update') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="inputEditTitle">Tiêu đề :</label>
+                        <input type="text" class="form-control" name="inputEditTitle" id="inputEditTitle"
+                            placeholder="Tiêu đề bài viết ..." data-rule-required='true'
+                            data-msg-required="Tiêu đề không được để trống" data-rule-maxlength=”100”
+                            data-msg-maxlength="Tiêu đê không dài quá 100 ký tự.">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col w-100">
+                            <label for="inputEditBusiness">Thể loại</label>
+                            <select class="form-control inputBusiness" id="inputEditBusiness" name="inputEditBusiness"
+                                data-rule-required='true' data-msg-required="Thể loại không được để trống">
+
+                            </select>
+                        </div>
+                        <div class="col w-100">
+                            <label for="inputEditDistrict">Quận / Huyện</label>
+                            <select class="form-control inputDistrict" id="inputEditDistrict" name="inputEditDistrict"
+                                data-rule-required='true' data-msg-required="Quận / Huyện không được để trống"
+                                onchange="district.changeDistrict()">
+
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="inputEditAddress">Tỉnh / Thành :</label>
+                            <input type="text" class="form-control inputAddress" name="inputEditAddress"
+                                id="inputEditAddress" placeholder="Tỉnh / Thành" data-rule-required='true'
+                                data-msg-required="Tỉnh / Thành không được để trống" readonly>
+                        </div>
+
+                        <div class="col">
+                            <label for="inputEditArea">Diện tích (m2) :</label>
+                            <input type="number" class="form-control" name="inputEditArea" id="inputEditArea"
+                                placeholder="Diện tích" data-rule-required='true'
+                                data-msg-required="Diện tích không được để trống" data-rule-min='1'
+                                data-msg-min='Diện tích không nhỏ hơn 1.' data-rule-max='500'
+                                data-msg-max='Diện tích không lớn hơn 500.'>
+                        </div>
+                        <div class="col">
+                            <label for="inputEditPrice">Giá tiền (đ) :</label>
+                            <input type="number" class="form-control" name="inputEditPrice" id="inputEditPrice"
+                                placeholder="Giá tiền" data-rule-required='true'
+                                data-msg-required="Giá tiền không được để trống" data-rule-min='1'
+                                data-msg-min='Giá tiền không nhỏ hơn 1.'>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEditFile">Ảnh (Giới hạn số lượng: 6):</label>
+                        <div id="showPhotoHouse" class="d-flex flex-wrap"></div>
+                        <input type="file" class="form-control-file" accept="image/*" id="inputEditFile"
+                            name="inputEditFile[]" multiple onchange="checkValueEditPhoto(this)">
+                        <span class="text-danger"><small id="inputFileError2"></small></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEditDescription">Mô tả :</label>
+                        <textarea class="form-control" id="editor3" name="inputEditDescription" rows="3"
+                            data-rule-required='true' data-msg-required="Mô tả không được để trống"></textarea>
+                    </div>
+                    <input type="hidden" value="0" name="houseIdHidden" id="houseIdHidden">
+                    <input type="hidden" value="{{ Auth::user()->id ?? 0 }}" name="user_id">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="formEditHouseOff()">Đóng</button>
+                <button type="button" class="btn btn-primary" id="submitCreateHouse" onclick="editHouse()">Đăng
+                    ngay</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- end --}}
 @endsection
 @push('user-info')
+{{-- ck editor --}}
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace('editor3'); 
+</script>
 <script>
     var user = user || {};
     user.openForm = function(data){
@@ -160,7 +254,6 @@
     }
 
     user.closeForm = function(data){
-        console.log($(this).data('phone'));
         ($(this).data('fullName') == null) ? $('#fullName').val('') : $('#fullName').val($(this).data('fullName'));
         ($(this).data('name') == null) ? $('#userName').val('') : $('#userName').val($(this).data('name'));
         ($(this).data('email') == null) ? $('#userEmail').val('') : $('#userEmail').val($(this).data('email'));
@@ -239,6 +332,7 @@
                 dataType: "json",
                 success: function (data) {
                     if(data){
+                        $('#avatar').attr('src', $('#avatarUser').attr('src'));
                         $('#formUpdateAvatar').attr('hidden', true);
                         $('#inputAvatar').val('');
                         $('#openFormUpdateAvatar').show();
@@ -256,37 +350,100 @@
         }
         
     }
-
-    function formEditHouseOn(data){
-        if($('#cardDrop').data('id') != null){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('house.detail') }}",
-                data: {
-                    id: $(data).data('houseid'),
-                },
-                dataType: "json",
-                success: function (data) {
-                    $('#inputTitle').val(data.title);
-                    $("#inputBusiness").val(data.business_type_id).change();
-                    $("#inputDistrict").val(data.district_id).change();
-                    $('#inputArea').val(data.area);
-                    $('#inputPrice').val(data.price);
-                    CKEDITOR.instances.editor2.setData(data.description);
-                    $.each(data.photos, function (i, value) {
-                        $('#showPhotoHouse').append(`
-                            <img src="{{ asset('uploads/${value.photoAddress}') }}" alt="">
-                        `);
-                        
-                    });
-                }
-            });
-            
-          }else{
-            $('#alertLogin').modal('show');
-          }
+    district.changeDistrict =  function(){
+        $.ajax({
+            type: "GET",
+            url: "{{ route('district.detail') }}",
+            data: {
+              id: $('#inputEditDistrict').val(),
+            },
+            dataType: "json",
+            success: function (data) {
+              $('#inputEditAddress').val(data.address.address);
+            }
+        });
     }
-
+    function formEditHouseOn(data){
+        $('#formEditPostHouse').modal('show');
+        
+        $.ajax({
+            type: "GET",
+            url: "{{ route('house.detail') }}",
+            data: {
+                id: $(data).data('houseid')
+            },
+            dataType: "json",
+            success: function (data) {
+                $('#inputEditTitle').val(data.title);
+                $(`select#inputEditBusiness option[value='${data.business_type_id}']`).attr('selected', true);
+                $(`select#inputEditDistrict option[value='${data.district_id}']`).attr('selected', true);
+                $('#inputEditAddress').val(data.address);
+                $('#inputEditArea').val(data.area);
+                $('#inputEditPrice').val(data.price);
+                CKEDITOR.instances.editor3.setData(data.description);
+                $('#houseIdHidden').val(data.id);
+                $('#showPhotoHouse').empty();
+                $.each(data.photos, function (i, value) { 
+                     $('#showPhotoHouse').append(`
+                     <div class="position-relative">
+                        <img src="{{ asset('uploads/images/houses/house-${value.house_id}/${value.photoAddress}') }}" alt="">
+                        <a href="javascript:;" onclick="deletePhotoHouse(this)"  data-photoid="${value.id}" class="position-absolute btn btn-link text-white"><i class="fas fa-times"></i></a>
+                    </div>
+                     
+                     `);
+                });
+            }
+        });
+       
+    }
+    function formEditHouseOff(){
+        $('#inputEditTitle').val('');
+            $('select#inputEditBusiness').val('');
+            $('select#inputEditDistrict').val('');
+            $('#inputEditAddress').val('');
+            $('#inputEditArea').val('');
+            $('#inputEditPrice').val('');
+            $('#inputEditFile').val('');
+            CKEDITOR.instances.editor3.setData('');
+            $('#showPhotoHouse').empty();
+            $('#formEditPostHouse').modal('hide');
+    }
+    var indexPhoto = [];
+    function deletePhotoHouse(data){
+        
+        if($(data).data('photoid') != 0){
+            indexPhoto.push($(data).data('photoid'));
+        }       
+        $(data).closest('div').remove();
+    }
+    function checkValueEditPhoto(data){
+        let countImage = $('#showPhotoHouse').children('div').length;
+        
+        let countFile = $("#inputEditFile").prop('files');
+        if((countImage + countFile.length) > 6) {
+            $('#inputFileError2').text('Số lượng ảnh vượt quá số lượng');
+            $('#inputFileError2').show();
+            return false;
+        }else{
+            $('#inputFileError2').hide();
+            if(countFile.length != 0){
+            let img = data.files;
+            for(let i = 0; i < img.length; i++){
+                let reader = new FileReader();
+                reader.onloadend = function() {
+                    $('#showPhotoHouse').append(`
+                        <div class="position-relative">
+                             <img src="${reader.result}" alt="">
+                            <a href="javascript:;" onclick="deletePhotoHouse(this)"  data-photoid="0" class="position-absolute btn btn-link text-white"><i class="fas fa-times"></i></a>
+                        </div>
+                    `);
+                }
+                reader.readAsDataURL(img[i]);
+            }
+            }
+        }
+        return true;
+    }
     function houseDelete(data){
         bootbox.confirm({ 
                 size: "small",
@@ -312,7 +469,20 @@
                 }
             });
     }
-
+    function editHouse(){
+        if($('#showPhotoHouse').children('div').length == 0){
+            $('#inputFileError2').text('Ảnh không được bỏ trống.');
+            $('#inputFileError2').show();
+        }else{
+            if($('#formEditHouse').valid() && $('#showPhotoHouse').children('div').length <= 6 ){
+            $('#formEditHouse').append(`
+                <input type="text" name="photoIdDelete" value="${indexPhoto}" hidden>
+            `);
+            $('#formEditHouse').submit();
+            formEditHouseOff();
+        }
+        }
+    }
     $(document).ready(function () {
         // $('.div-hover').children('div .btn-editHouseUser').attr('hidden', true)
         $('.div-hover').hover(function () {
@@ -322,7 +492,7 @@
                 $(this).children('div.btn-editHouseUser').attr('hidden', true);
             }
         );
-
+            
     });
        
 </script>

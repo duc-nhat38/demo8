@@ -124,18 +124,16 @@ class UserRepository implements UserRepositoryInterface
     public function updateAvatar($data)
     {
         $user = UserInformation::where('user_id', $data['id'])->first();
-        if ($user['avatar'] != 'avatar.jpg') {
-            $file_path = base_path().'/public/uploads/'. $user['avatar'];
-            if (File::exists($file_path)){
-                File::delete($file_path);
-            }
+        $file_path = public_path('uploads/images/users/user-'.$user['id'] . '/' . $user['avatar']);
+        if (File::exists($file_path)) {
+            File::delete($file_path);
         }
         $fileName = time() . rand() . '.' . $data['inputAvatar']->getClientOriginalExtension();
-        $data['inputAvatar']->move(public_path('uploads'), $fileName);
+        $data['inputAvatar']->move(public_path("uploads/images/users/user-" . $user['id']), $fileName);
         $user->update([
             'avatar' => $fileName
         ]);
 
-        return true;
+        return $fileName;
     }
 }

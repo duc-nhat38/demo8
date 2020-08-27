@@ -22,7 +22,7 @@ Route::get('/get-banners-slide', 'BannerImageController@bannerSlide')->name('ban
 
 Route::get('/get-banner-detail', 'BannerImageController@show')->name('banner.detail');
 
-Route::put('/banner-update', 'BannerImageController@update')->name('banner.update');
+Route::post('/banner-update', 'BannerImageController@update')->name('banner.update');
 
 Route::post('/banner-create', 'BannerImageController@store')->name('banner.create');
 

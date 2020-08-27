@@ -2,6 +2,7 @@
 
 use App\Models\BusinessType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BusinessTypeImageSeeder extends Seeder
 {
@@ -12,6 +13,17 @@ class BusinessTypeImageSeeder extends Seeder
      */
     public function run()
     {
-        factory(BusinessType::class, 2)->create();
+        DB::table('business_types')->insert([
+            [
+                'typeName' => 'Nhà ở',
+            ],
+            [
+                'typeName' => 'Nhà trọ',
+            ],
+            [
+                'typeName' => 'Văn Phòng',
+            ],
+            
+        ]);
     }
 }

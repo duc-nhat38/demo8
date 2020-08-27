@@ -34,8 +34,8 @@
     padding-top: 2.5%;
 }
 #tableBanner tr img {
-    max-width: 300px;
-    max-height: 200px;
+    max-width: 200px;
+    max-height: 100px;
 }
 
 /* modal */
@@ -95,3 +95,8 @@
     max-height: 160px;
 }
 
+/* error form */
+label.error {
+    color: red;
+    font-size: 13px;
+}

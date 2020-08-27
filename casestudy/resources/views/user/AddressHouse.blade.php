@@ -8,7 +8,7 @@
     <div class="w-100 d-flex flex-wrap">
         @foreach ($addressHouse as $item)
         <div class="card div-hover p-0">
-            <img src="{{  asset('uploads/'.$item["photo"]) }}" class="card-img-top">
+            <img src="{{  asset('uploads/images/houses/house-'.$item["id"].'/'.$item["photo"]) }}" class="card-img-top">
             <div class="card-body p-2">
                 <h6><a href="{{ route('house.show', $item['id']) }}"
                         class="text-decoration-none">{{ $item['title'] }}</a></h6>

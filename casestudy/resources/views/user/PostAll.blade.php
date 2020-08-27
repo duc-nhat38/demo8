@@ -10,7 +10,7 @@
             @foreach ($posts as $item)            
         <div class="w-100 d-flex border p-1 mt-2 rounded div-hover">
             <div class="col-3 m-auto">
-                <img src="{{ $item['coverImage'] }}" alt="">
+                <img src="{{ asset('uploads/images/posts/'.$item['coverImage']) }}" alt="">
             </div>
             <div class="col-9">
                 <p class="text-wrap"><a class="text-decoration-none" href="{{ route('post.show', $item['id']) }}">{{ $item['title'] }}</a></p>

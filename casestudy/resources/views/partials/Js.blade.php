@@ -20,7 +20,7 @@
 <script src="https://kit.fontawesome.com/284c8b8952.js" crossorigin="anonymous"></script>
 {{-- select2 --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-{{--  --}}
+{{-- jq valid --}}
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.js"></script>
 
 

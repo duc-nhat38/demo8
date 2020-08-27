@@ -4,7 +4,7 @@
 <div class="container pt-5">
     <div class="w-100 d-flex border rounded p-2 information bg-white">
         <div class="col-3 p-0 text-center">
-            <img src="{{  asset('uploads/'.$information["avatar"]) }}" alt="avatar" class="rounded-circle">
+            <img src="{{  asset('uploads/images/users/user-'.$information["id"].'/'.$information["avatar"]) }}" alt="avatar" class="rounded-circle">
         </div>
         <div class="col-4">
             <p><i class="fas fa-user fa-lg"></i> {{ $information['name'] }}
@@ -41,7 +41,7 @@
         <div class="w-100 d-flex flex-wrap">
             @foreach ($houses as $item)
             <div class="card div-hover p-0">
-                <img src="{{  asset('uploads/'.$item["photo"]) }}" class="card-img-top">
+                <img src="{{  asset('uploads/images/houses/house-'.$item["id"].'/'.$item["photo"]) }}" class="card-img-top">
                 <div class="card-body p-2">
                     <h6><a href="{{ route('house.show', $item['id']) }}"
                             class="text-decoration-none">{{ $item['title'] }}</a></h6>

@@ -2,6 +2,7 @@
 
 use App\Models\HomeInformation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class HomeInformationSeeder extends Seeder
 {
@@ -12,6 +13,35 @@ class HomeInformationSeeder extends Seeder
      */
     public function run()
     {
-        factory(HomeInformation::class, 20)->create();
+        DB::table('home_information')->insert([
+            [
+                'area' => '25',
+                'title' => 'Nhà ở',
+                'description' => 'Nhà ở',
+                'house_id' => '1',
+
+            ],    
+            [
+                'area' => '25',
+                'title' => 'Nhà ở',
+                'description' => 'Nhà ở',
+                'house_id' => '2',
+
+            ],  
+            [
+                'area' => '25',
+                'title' => 'Nhà ở',
+                'description' => 'Nhà ở',
+                'house_id' => '3',
+
+            ],  
+            [
+                'area' => '25',
+                'title' => 'Nhà ở',
+                'description' => 'Nhà ở',
+                'house_id' => '4',
+
+            ],   
+        ]);
     }
 }

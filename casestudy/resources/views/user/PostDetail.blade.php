@@ -11,7 +11,7 @@
                 <span><small><i class="fas fa-eye"></i> {{ $post['view'] }}</small></span>
             </div>
             <div class="mt-5 text-center">
-                <img src="{{ $post['coverImage'] }}" alt="">
+                <img src="{{ asset('uploads/images/posts/'.$post['coverImage']) }}" alt="">
             </div>
             <div class="mt-5">
                 {!! $post['content'] !!}
@@ -26,11 +26,12 @@
             @if ($postInvolve)
             @foreach ($postInvolve as $item)
             <div class="card m-2 " style="width: 260px;">
-                <img src="{{ $item['coverImage'] }}" class="card-img-top" alt="...">
+                <img src="{{ asset('uploads/images/posts/'.$item['coverImage']) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h6 class="card-text">
                         <a class="text-decoration-none" href="{{ route('post.show', $item['id']) }}">{{ $item['title'] }}</a>
                     </h6>
+                    <span><small></small></span>
                 </div>
             </div>
             @endforeach

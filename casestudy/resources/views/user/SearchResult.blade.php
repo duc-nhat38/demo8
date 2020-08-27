@@ -10,7 +10,7 @@
     <div class="w-100 d-flex flex-wrap">
         @foreach ($resultHouse as $item)
         <div class="card div-hover p-0">
-            <img src="{{  asset('uploads/'.$item["photo"]) }}" class="card-img-top">
+            <img src="{{  asset('uploads/images/houses/house-'.$item["id"].'/'.$item["photo"]) }}" class="card-img-top">
             <div class="card-body p-2">
                 <h6><a href="{{ route('house.show', $item['id']) }}"
                         class="text-decoration-none">{{ $item['title'] }}</a></h6>
@@ -19,7 +19,7 @@
                         href="{{ route('business.house', $item['business_type_id']) }}">{{ $item['businessName'] }}</a></span><br>
                 <span class="card-text">Diện tích : {{ $item['area'] }} m<sup>2</sup></span><br>
                 <span class="card-text">Giá : {{ number_format($item['price']) }} đ</span><br>
-                <span class="card-text">Người đăng : <a href="">{{ $item['name'] }}</a></span><br>
+                <span class="card-text">Người đăng : <a href="{{ route('get.user', $item['user_id']) }}">{{ $item['name'] }}</a></span><br>
                 <span class="card-text"><small class="text-muted">Thời gian : {{ $item['day_create'] }}</small></span>
             </div>
         </div>

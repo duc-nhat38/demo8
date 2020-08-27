@@ -21,9 +21,9 @@
       @else
       <li class="nav-item pt-2 active">
         <div class="d-flex position-relative p-1" id="cardDrop" data-id="{{ Auth::user()->id }}">
-          <img src="{{ asset('uploads/'.Auth::user()->information->avatar) }}" alt="" class="rounded-circle"
-            id="avatar">
-          <span class="ml-1">{{ Auth::user()->name }}</span>
+          <img src="{{ asset('uploads/images/users/user-'.Auth::user()->id.'/'.Auth::user()->information->avatar)}}"
+            alt="" class="rounded-circle" id="avatar">
+          <span class="ml-1 mt-1">{{ Auth::user()->name }}</span>
           <div class="card position-absolute" style="width: 15rem;" id="card-user">
             <ul class="list-group list-group-flush">
               @if (Auth::user()->isAdmin == 1)
@@ -37,7 +37,7 @@
                     class="far fa-address-card"></i> Cá nhân</a>
               </li>
               <li class="list-group-item">
-                <a class="text-decoration-none" href=""><i class="fas fa-user-cog"></i> Thay đổi mật khẩu</a>
+                <a class="text-decoration-none" href="{{ route('password.request') }}"><i class="fas fa-user-cog"></i> Thay đổi mật khẩu</a>
               </li>
               <li class="list-group-item ">
                 <a class="collapse-item text-decoration-none" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -68,7 +68,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Đăng bài</h5>
-        <button type="button" class="close"  aria-label="Close" onclick="formPostHouseOff()">
+        <button type="button" class="close" aria-label="Close" onclick="formPostHouseOff()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -84,21 +84,21 @@
           <div class="form-group row">
             <div class="col w-100">
               <label for="inputBusiness">Thể loại</label>
-              <select class="form-control" id="inputBusiness" name="inputBusiness" data-rule-required='true'
+              <select class="form-control inputBusiness" id="inputBusiness" name="inputBusiness" data-rule-required='true'
                 data-msg-required="Thể loại không được để trống">
 
               </select>
             </div>
             <div class="col w-100">
               <label for="inputDistrict">Quận / Huyện</label>
-              <select class="form-control" id="inputDistrict" name="inputDistrict" data-rule-required='true'
+              <select class="form-control inputDistrict" id="inputDistrict" name="inputDistrict" data-rule-required='true'
                 data-msg-required="Quận / Huyện không được để trống" onchange="district.addressDetail()">
 
               </select>
             </div>
             <div class="col">
               <label for="inputAddress">Tỉnh / Thành :</label>
-              <input type="text" class="form-control" name="inputAddress" id="inputAddress" placeholder="Tỉnh / Thành"
+              <input type="text" class="form-control inputAddress" name="inputAddress" id="inputAddress" placeholder="Tỉnh / Thành"
                 data-rule-required='true' data-msg-required="Tỉnh / Thành không được để trống" readonly>
             </div>
 
@@ -186,7 +186,7 @@
                             <a class="nav-link" href="/business/${value.id}">${(value.typeName).toUpperCase()}</a>
                         </li>
                         `);
-                        $('#inputBusiness').append(`
+                        $('.inputBusiness').append(`
                         <option value="${value.id}">${value.typeName}</option>
                     `);
                     });
@@ -223,7 +223,7 @@
       success: function (data) {
         $('#inputDistrict').empty();
         $.each(data, function (i, value) { 
-          $('#inputDistrict').append(`
+          $('.inputDistrict').append(`
             <option value="${value.id}"> ${value.district}</option>
           `);
         });
@@ -242,7 +242,7 @@
       },
       dataType: "json",
       success: function (data) {
-        $('#inputAddress').val(data.address.address);
+        $('.inputAddress').val(data.address.address);
       }
     });
   }
@@ -266,7 +266,6 @@
           $('#inputArea').val('');
           $('#inputPrice').val('');
           $('#inputFile').val('');
-          $('#showPhotoHouse').empty();
           district.inputDistrict();
           business.inputBusiness();
           CKEDITOR.instances.editor2.setData('');

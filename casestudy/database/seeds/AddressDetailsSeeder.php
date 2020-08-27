@@ -2,6 +2,8 @@
 
 use App\Models\District;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AddressDetailsSeeder extends Seeder
 {
@@ -12,6 +14,24 @@ class AddressDetailsSeeder extends Seeder
      */
     public function run()
     {
-        factory(District::class, 20)->create();
+        DB::table('districts')->insert([
+            [
+                'district' => 'Phú bài',
+                'address_id' => '1'
+            ],
+            [
+                'district' => 'Thủy Phù',
+                'address_id' => '1'
+            ],
+            [
+                'district' => 'Thủy Dương',
+                'address_id' => '2'
+            ],
+            [
+                'district' => 'Quận 3',
+                'address_id' => '3'
+            ],
+
+        ]);
     }
 }

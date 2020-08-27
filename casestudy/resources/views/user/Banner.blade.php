@@ -31,7 +31,7 @@
                     `);
                     $('.carousel-inner').append(`
                         <div class="carousel-item active" data-interval="3000">
-                            <img src="${data[0].imageAddress}" class="d-block w-100" alt="${data[0].title}">
+                            <img src="{{ asset('uploads/images/banners/${data[0].imageAddress}') }}" class="d-block w-100" alt="${data[0].title}">
                         </div>
                     `);
                     for(let k = 1; k < data.length;k++ ){
@@ -40,7 +40,7 @@
                         `);
                         $('.carousel-inner').append(`
                          <div class="carousel-item" data-interval="3000">
-                            <img src="${data[k].imageAddress}" class="d-block w-100" alt="${data[k].title}">
+                            <img src="{{ asset('uploads/images/banners/${data[k].imageAddress}') }}" class="d-block w-100" alt="${data[k].title}">
                         </div>
                          `);
                     }

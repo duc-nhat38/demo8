@@ -2,6 +2,7 @@
 
 use App\Models\UserInformation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserInformationSeeder extends Seeder
 {
@@ -12,6 +13,14 @@ class UserInformationSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserInformation::class, 5)->create();
+        DB::table('user_information')->insert([
+            [
+                'fullName' => 'admin123',
+                'phone' => '123456',
+                'address' =>'Hà tĩnh',
+                'user_id'=> 1,
+                'avatar'=> 'avatar.jpg',
+            ],  
+        ]);
     }
 }

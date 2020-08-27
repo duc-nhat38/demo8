@@ -20,7 +20,6 @@ class CreateHousesTable extends Migration
             $table->integer('business_type_id')->unsigned();     
             $table->integer('price');
             $table->integer('view')->default(0);
-            $table->string('expired')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

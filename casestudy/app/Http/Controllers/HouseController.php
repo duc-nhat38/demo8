@@ -60,19 +60,10 @@ class HouseController extends Controller
             Session::put($productKey, 1);
         }
         $house = $this->houseRepository->show($id);
+
         return view('user.HouseInfo', compact('house'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\House  $house
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(House $house)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -81,9 +72,12 @@ class HouseController extends Controller
      * @param  \App\Models\House  $house
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, House $house)
+    public function update(Request $request)
     {
-        //
+        $attribute = $request->all();
+        $house = $this->houseRepository->update($attribute);
+
+        return redirect()->back();
     }
 
     /**

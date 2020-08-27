@@ -10,7 +10,7 @@
                 <th scope="col">Ảnh</th>
                 <th scope="col">Tên đăng nhập</th>
                 <th scope="col">Email</th>
-                <th scope="col">Quyền</th>
+                <th scope="col">Xác thực</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -54,23 +54,25 @@
         dataType: "json",
         url: '{{ route("get.users") }}',
         success: function (data){
-            console.log(data);
-            $('#tableUser tbody').empty();
-            
+            if ($.fn.DataTable.isDataTable( '#tablePost' ) ) {
+                $('#tableUser').DataTable().destroy();
+                  }
+                
+                $('#tableUser tbody').empty();
             $.each(data, function (i, item) {
                 
-                let power = (item.role != 0) ? 'VIP <i class="fas fa-crown text-warning fa-lg"></i>':'Thường <i class="fas fa-crown text-dark fa-lg"></i>';
-                let titleVip = (item.role != 0) ? 'Xóa VIP':'Cấp VIP';
+                let power = (item.role != 0) ? 'text-success':'text-dark';
+                let titleCheck = (item.role != 0) ? 'Đã xác thực':'Chưa xác thực';
                 let lock = (item.locked != 0)?'<i class="fas fa-lg fa-lock"></i>':'<i class="fas fa-lg fa-lock-open"></i>';
                 let titleLock = (item.locked != 0)? 'Mở khóa tài khoản' : 'Khóa tài khoản';
                 $('#tableUser tbody').append(`                       
                 <tr>
                     <td scope="row">${i+1}</td>
-                    <td><img src="${item.avatar}"></td>
+                    <td><img src="{{ asset('uploads/images/users/user-${item.id}/${item.avatar}') }}"></td>
                     <td>${item.name}</td>                            
                     <td>${item.email}</td>                            
                     <td>
-                        <a href="javascript:;" title="${titleVip}" class ="text-decoration-none" onclick="user.power(${item.id}, ${item.role})">${power}</a>
+                        <a href="javascript:;" title="${titleCheck}" class ="text-decoration-none" onclick="user.power(${item.id}, ${item.role})"><i class="fas fa-user-check ${power} fa-lg"></i></a>
                     </td>
                     <td>
                         <a href="javascript:;" title='Xem chi tiết'  onclick="user.showInfoUser(${item.id})"><i class="fas fa-eye text-danger fa-lg"></i></a>
@@ -130,20 +132,19 @@
             id: userId,
         },
         success: function (data){
-            let power = (data.role == 1)?'VIP <i class="fas fa-crown position-absolute ml-2 text-warning fa-lg"></i>':'Thường <i class="fas fa-crown position-absolute ml-2 text-dark fa-lg"></i>';
+            let power = (data.role == 1)?'text-success':'text-dark';
             $('.body-show').empty();
             $('.body-show').append(`
             <div class="card position-relative m-auto border-0" style="width: 29rem;">
-                <img class="card-img-top m-auto" src="${data.avatar}" alt="Ảnh đại diện">
+                <img class="card-img-top m-auto" src="{{ asset('uploads/images/users/user-${data.id}/${data.avatar}') }}" alt="Ảnh đại diện">
             
             <div class="card-body">
-                <h5 class="card-title">Tên : ${data.fullName}</h5>
+                <h5 class="card-title">Tên : ${(data.fullName != null)? data.fullName : 'Chưa có'}</h5>
                 <p class="card-text">Tên đăng nhập : ${data.name}</p>
                 <p class="card-text">Email : ${data.email}</p>
-                <p class="card-text">Số điện thoại : ${data.phone}</p>
-                <p class="card-text">Địa chỉ : ${data.address}</p>
-                <p class="card-text">Giới tính : ${data.gender}</p>
-                <p class="card-text">Tài khoản : ${power}
+                <p class="card-text">Số điện thoại : ${(data.phone != null)?data.phone:'Chưa có'}</p>
+                <p class="card-text">Địa chỉ : ${(data.address != null)?data.address:'Chưa có'}</p>
+                <p class="card-text">Tài khoản : <i class="fas fa-user-check ${power} fa-lg"></i>
             </div>                                              
             </div>    
             `);

@@ -2,6 +2,7 @@
 
 use App\Models\Address;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AddressSeeder extends Seeder
 {
@@ -12,6 +13,16 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        factory(Address::class, 5)->create();
+        DB::table('addresses')->insert([
+            [
+                'address' => 'Huế',
+            ],
+            [
+                'address' => 'Ha Nội',
+            ],
+            [
+                'address' => 'Sài Gòn',
+            ]
+        ]);
     }
 }

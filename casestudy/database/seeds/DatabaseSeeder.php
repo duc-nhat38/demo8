@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call(HouseSeeder::class); 
         $this->call(HomeInformationSeeder::class);   
         $this->call(HomePhotoSeeder::class);   
-        $this->call(CommentSeeder::class);
+        // $this->call(CommentSeeder::class);
         $this->call(PostSeeder::class);
-        $this->call(VoteSeeder::class);
+        // $this->call(VoteSeeder::class);
         $this->call(BannerImageSeeder::class);
     }
 }

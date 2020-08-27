@@ -41,12 +41,14 @@
 
                 <!-- Modal body -->
                 <div class="modal-body modal-post">
-                    <form id="formDataPost">
+                    <form id="formDataPost" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="form-group form-row">
                                 <div class="col">
                                     <label for="titlePost">Tiêu đề bài viết :</label>
-                                    <textarea class="form-control" id="titlePost" rows="6"></textarea>
+                                    <textarea class="form-control" id="titlePost" rows="6" name="titlePost"
+                                    data-rule-required='true' data-msg-required="Tiêu đề không được để trống"
+                                    data-rule-maxlength='200' data-msg-maxlength="Tiêu đề không dài hơn 200 ký tự"></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="">Ảnh bìa : </label>
@@ -54,12 +56,14 @@
                                         <img src="" class="img-thumbnail" alt="" id="coverImage"><br>
                                     </div>
                                     <input class="mt-3 ml-2" type="file" accept="image/*" class="form-control-file"
-                                        name="imageUpload" id="imageUpload" onchange="post.showCoverImage(this)">
+                                        name="imageUpload" id="imageUpload" onchange="post.showCoverImage(this)" data-rule-required='true'
+                                        data-msg-required="Ảnh không được để trống" data-rule-accept='image/*'
+                                        data-msg-accept="File tải lên không phải ảnh">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="texarea">Nội dung bài viết : </label>
-                                <textarea class="form-control editor1" id="editor1" rows="10"></textarea>
+                                <textarea class="form-control editor1" id="editor1" rows="10" data-rule-required='true' data-msg-required="Nội dung không được để trống"></textarea>
                             </div>
                             <input type="hidden" name="id" id="postId">
                             <input type="hidden" name="user_id" id="userId" value="{{ Auth::user()->id }}">
@@ -93,26 +97,17 @@
                 url: '{{ route("get.posts") }}',
                 dataType: 'json',
                 success: function(data){
+                    if ($.fn.DataTable.isDataTable( '#tablePost' ) ) {
+                    $('#tablePost').DataTable().destroy();
+                  }
                     $('#tablePost tbody').empty();
-                    let time = new Date();
-                    let month = time.getMonth()+1;
-                    let view = 0;
-                    let viewsOfTheMonth = 0;
-                    let post = 0;
-                    let postsOfTheMonth = 0;
                     $.each(data, function(i, item) {
                         let update = 'Chưa cập nhật';
-                        if(item.day_update != item.day_create){
-                        update = item.day_update;
-                    }
-                    view += item.view;
-                    post += 1;
                 
-                    viewsOfTheMonth += 
                     $('#tablePost tbody').append(`
                         <tr>
                             <td scope="row">${i+1}</td>
-                            <td data-toggle="tooltip" title="${item.title}">${(item.title).substr(0, 20)}...</td>
+                            <td data-toggle="tooltip" title="${item.title}">${(item.title).substr(0,20)}...</td>
                             <td>${item.day_create}</td>
                             <td>${update}</td>
                             <td>${item.view}</td>
@@ -141,7 +136,7 @@ post.getDetail = function(id){
             },
             success: function (data){
                 $('#titlePost').val(data.title);
-                $('#coverImage').attr('src', data.coverImage);
+                $('#coverImage').attr('src', `{{ asset('uploads/images/posts/${data.coverImage}') }}`);
                 CKEDITOR.instances.editor1.setData(data.content);
                 $('#postId').val(data.id);                   
             }
@@ -159,18 +154,17 @@ post.show = function(){
 }
 
 post.save = function(){
-    if($('#postId').val() != 0){
+    var fomrPost = new FormData($('#formDataPost')[0]);
+    fomrPost.append('content', CKEDITOR.instances['editor1'].getData());
+    if($('#formDataPost').valid()){
+        if($('#postId').val() != 0){
         $.ajax ({
         method: 'POST',
         url: '{{ route("post.update") }}',
         dataType: 'json',
-        data: {
-            id: $('#postId').val(),
-            title: $('#titlePost').val(),
-            content: CKEDITOR.instances.editor1.getData(),
-            user_id: $('#userId').val(),
-            coverImage: $('#coverImage').attr('src'),
-        },
+        data: fomrPost,
+        contentType: false,
+        processData: false,
         success: function(data){
             $('#editPost').modal('hide');
             post.get();
@@ -182,12 +176,9 @@ post.save = function(){
         method: 'POST',
         url: '{{ route("post.create") }}',
         dataType: 'json',
-        data: {
-            title: $('#titlePost').val(),
-            content: CKEDITOR.instances.editor1.getData(),
-            user_id: $('#userId').val(),
-            coverImage: $('#coverImage').attr('src'),
-        },
+        data: fomrPost,
+        contentType: false,
+        processData: false,
         success: function(data){
             $('#editPost').modal('hide');
             post.get();
@@ -195,6 +186,7 @@ post.save = function(){
         }
     });
 }
+    }
 }
 
 post.delete = function(id){
@@ -240,11 +232,15 @@ post.showCoverImage = function(data){
         reader.readAsDataURL(image);
    }
 }
+
+
 post.dropDown = function(){
     $('#titlePost').val('');
     $('#coverImage').attr('src','');
+    $('#imageUpload').val('');
     CKEDITOR.instances.editor1.setData('');
     $('#postId').val(0);
+    $('label.error').hide();
     $('#editPost').modal('show');
 }
 $(document).ready( function () {
