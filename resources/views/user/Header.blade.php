@@ -161,7 +161,7 @@
 </div>
 @push('header')
 {{-- ck editor --}}
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script src="/ckeditor/ckeditor.js"></script>
 <script>
   CKEDITOR.replace('editor2'); 
 </script>
