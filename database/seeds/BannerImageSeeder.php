@@ -20,6 +20,7 @@ class BannerImageSeeder extends Seeder
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
+                "expirationDate" => '2020-08-28 00:00:00'
             ],
             [
                 'title' => 'Bns nhà',
@@ -27,6 +28,7 @@ class BannerImageSeeder extends Seeder
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
+                "expirationDate" => '2020-08-28 00:00:00'
             ],
             [
                 'title' => 'Bns nhà',
@@ -34,6 +36,7 @@ class BannerImageSeeder extends Seeder
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
+                "expirationDate" => '2020-08-28 00:00:00'
             ],
             [
                 'title' => 'Bns nhà',
@@ -41,6 +44,7 @@ class BannerImageSeeder extends Seeder
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
+                "expirationDate" => '2020-08-28 00:00:00'
             ],
 
         ]);
