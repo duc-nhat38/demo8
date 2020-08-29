@@ -21,6 +21,7 @@ class PostSeeder extends Seeder
                 'coverImage'=> 'anhnha.jpg',
                 'created_at' => '2020-08-13 05:48:14',
                 'updated_at' => '2020-08-13 05:48:14',
+                "expirationDate" => '2020-08-28 00:00:00'
             ],   
             [
                 'user_id' => '1',
@@ -29,6 +30,7 @@ class PostSeeder extends Seeder
                 'coverImage'=> 'anhnha.jpg',
                 'created_at' => '2020-08-13 05:48:14',
                 'updated_at' => '2020-08-13 05:48:14',
+                "expirationDate" => '2020-08-28 00:00:00'
             ], 
             
         ]);
