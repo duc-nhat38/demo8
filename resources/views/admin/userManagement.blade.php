@@ -44,5 +44,5 @@
 @endsection
 
 @push('userManagerment-js')
-<script src="{{ asset('js/dashboard/userManagement.js') }}"></script>
+<script src="/js/dashboard/userManagement.js"></script>
 @endpush

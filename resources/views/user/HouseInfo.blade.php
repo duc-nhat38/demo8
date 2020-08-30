@@ -131,5 +131,5 @@
 @endsection
 
 @push('house-info')
-<script src="{{ asset('js/homePage/HouseInfo.js') }}"></script>
+<script src="/js/homePage/HouseInfo.js"></script>
 @endpush

@@ -156,5 +156,5 @@
 </div>
 @push('header')
 <script src="/ckeditor/ckeditor.js"></script>
-<script src="{{ asset('js/homePage/Header.js') }}"></script>
+<script src="/js/homePage/Header.js"></script>
 @endpush

@@ -237,7 +237,7 @@
 @endsection
 @push('user-info')
 {{-- ck editor --}}
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('js/homePage/UserInfo.js') }}"></script>
+<script src="/ckeditor/ckeditor.js"></script>
+<script src="/js/homePage/UserInfo.js"></script>
 
 @endpush

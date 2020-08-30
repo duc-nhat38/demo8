@@ -2,7 +2,7 @@ var banner = banner || {};
 banner.getSlideBanner = function () {
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/get-banners-slide",
+        url: "https://timnha.herokuapp.com/api/get-banners-slide",
         dataType: "json",
         success: function (data) {
             $('.carousel-indicators').empty();
@@ -12,7 +12,7 @@ banner.getSlideBanner = function () {
             `);
             $('.carousel-inner').append(`
                 <div class="carousel-item active" data-interval="3000">
-                    <img src="http://127.0.0.1:8000/uploads/images/banners/${data[0].imageAddress}" class="d-block w-100" alt="${data[0].title}">
+                    <img src="https://timnha.herokuapp.com/uploads/images/banners/${data[0].imageAddress}" class="d-block w-100" alt="${data[0].title}">
                 </div>
             `);
             for (let k = 1; k < data.length; k++) {
@@ -21,7 +21,7 @@ banner.getSlideBanner = function () {
                 `);
                 $('.carousel-inner').append(`
                  <div class="carousel-item" data-interval="3000">
-                    <img src="http://127.0.0.1:8000/uploads/images/banners/${data[k].imageAddress}" class="d-block w-100" alt="${data[k].title}">
+                    <img src="https://timnha.herokuapp.com/uploads/images/banners/${data[k].imageAddress}" class="d-block w-100" alt="${data[k].title}">
                 </div>
                  `);
             }

@@ -7,5 +7,5 @@
 </div>
 
 @push('index')
-    <script src="{{ asset("js/homePage/BarBusiness.js") }}"></script>
+    <script src="js/homePage/BarBusiness.js"></script>
 @endpush

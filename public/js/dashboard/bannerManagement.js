@@ -5,7 +5,7 @@ banner.get = function () {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/get-banners',
+        url: 'https://timnha.herokuapp.com/api/get-banners',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tableBanner')) {
                 $('#tableBanner').DataTable().destroy();
@@ -16,7 +16,7 @@ banner.get = function () {
                 $('#tableBanner tbody').append(`                       
                     <tr>
                         <td scope="row">${i+1}</td>
-                        <td><img src="http://127.0.0.1:8000/uploads/images/banners/${item.imageAddress}" class=""></td>
+                        <td><img src="https://timnha.herokuapp.com/uploads/images/banners/${item.imageAddress}" class=""></td>
                         <td data-toggle="title" title="${item.title}">${(item.title).substr(0,10)}...</td>
                         <td data-toggle="partner" title="${item.partner}">${(item.partner).substr(0, 10)}...</td>                            
                         <td>${item.name}</td>
@@ -83,7 +83,7 @@ banner.getDetail = function (bannerId) {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/get-banner-detail',
+        url: 'https://timnha.herokuapp.com/api/get-banner-detail',
         data: {
             id: bannerId,
         },
@@ -93,7 +93,7 @@ banner.getDetail = function (bannerId) {
                 $('#gridCheck').prop('checked', true);
             }
             $('#titleBanner').val(data[0].title);
-            $('#image').attr('src', `http://127.0.0.1:8000/uploads/images/banners/${data[0].imageAddress}`);
+            $('#image').attr('src', `https://timnha.herokuapp.com/uploads/images/banners/${data[0].imageAddress}`);
             $('#namePartner').val(data[0].partner);
             $('#date-input').val(data[0].expirationDate);
             $('#hidden').val(data[0].id);
@@ -148,7 +148,7 @@ banner.save = function () {
             $.ajax({
                 method: "POST",
                 dataType: "json",
-                url: 'http://127.0.0.1:8000/api/banner-update',
+                url: 'https://timnha.herokuapp.com/api/banner-update',
                 data: formBanner,
                 contentType: false,
                 processData: false,
@@ -174,7 +174,7 @@ banner.save = function () {
                 $.ajax({
                     method: "POST",
                     dataType: "json",
-                    url: 'http://127.0.0.1:8000/api/banner-create',
+                    url: 'https://timnha.herokuapp.com/api/banner-create',
                     data: formBanner,
                     contentType: false,
                     processData: false,
@@ -207,7 +207,7 @@ banner.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/banner-destroy',
+                    url: 'https://timnha.herokuapp.com/api/banner-destroy',
                     method: "DELETE",
                     dataType: "json",
                     data: {

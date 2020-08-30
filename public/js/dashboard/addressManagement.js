@@ -3,7 +3,7 @@ address.get = function () {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/get-address',
+        url: 'https://timnha.herokuapp.com/api/get-address',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tableAdd')) {
                 $('#tableAdd').DataTable().destroy();
@@ -31,7 +31,7 @@ address.get = function () {
 address.detail = function (id) {
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/get-address-detail",
+        url: "https://timnha.herokuapp.com/api/get-address-detail",
         data: {
             id: id,
         },
@@ -111,7 +111,7 @@ address.save = function () {
         if ($('#idHidden').val() != 0) {
             $.ajax({
                 method: "PUT",
-                url: "http://127.0.0.1:8000/api/address-update",
+                url: "https://timnha.herokuapp.com/api/address-update",
                 data: {
                     id: $('#idHidden').val(),
                     address: $('#nameEdit').val(),
@@ -129,7 +129,7 @@ address.save = function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/api/address-create",
+                url: "https://timnha.herokuapp.com/api/address-create",
                 data: {
                     address: $('#nameEdit').val(),
                 },
@@ -165,7 +165,7 @@ address.delete = function (id) {
             if (result) {
                 $.ajax({
                     type: "DELETE",
-                    url: "http://127.0.0.1:8000/api/address-destroy",
+                    url: "https://timnha.herokuapp.com/api/address-destroy",
                     data: {
                         id: id,
                     },
@@ -192,7 +192,7 @@ district.get = function () {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/get-district',
+        url: 'https://timnha.herokuapp.com/api/get-district',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tableDistrict')) {
                 $('#tableDistrict').DataTable().destroy();
@@ -219,7 +219,7 @@ district.get = function () {
 district.detail = function (id) {
     $.ajax({
         type: "GET",
-        url: 'http://127.0.0.1:8000/api/get-district-detail',
+        url: 'https://timnha.herokuapp.com/api/get-district-detail',
         data: {
             id: id,
         },
@@ -284,7 +284,7 @@ district.create = function () {
     `);
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/get-address",
+        url: "https://timnha.herokuapp.com/api/get-address",
         dataType: "json",
         success: function (data) {
             $('#selectAddressFormCreate').empty();
@@ -314,7 +314,7 @@ district.edit = function (id, districtName, address_id) {
     `);
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/get-address",
+        url: "https://timnha.herokuapp.com/api/get-address",
         dataType: "json",
         success: function (data) {
             $('#selectAddressFormCreate').empty();
@@ -334,7 +334,7 @@ district.save = function () {
         if ($('#idHidden').val() != 0) {
             $.ajax({
                 method: "PUT",
-                url: "http://127.0.0.1:8000/api/district-update",
+                url: "https://timnha.herokuapp.com/api/district-update",
                 data: {
                     id: $('#idHidden').val(),
                     district: $('#nameEdit').val(),
@@ -353,7 +353,7 @@ district.save = function () {
         }else{
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/api/district-create",
+                url: "https://timnha.herokuapp.com/api/district-create",
                 data: {
                     id: '0',
                     district: $('#nameEdit').val(),
@@ -390,7 +390,7 @@ district.delete = function (id) {
             if (result) {
                 $.ajax({
                     type: "DELETE",
-                    url: "http://127.0.0.1:8000/api/district-destroy",
+                    url: "https://timnha.herokuapp.com/api/district-destroy",
                     data: {
                         id: id,
                     },

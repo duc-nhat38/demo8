@@ -23,5 +23,5 @@
 </div>
 
 @push('search')
-<script src="{{ asset('js/homePage/Search.js') }}"></script>
+<script src="/js/homePage/Search.js"></script>
 @endpush

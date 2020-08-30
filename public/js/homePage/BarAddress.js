@@ -2,7 +2,7 @@ var address = address || {};
 address.bar = function(){
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/get-address",
+        url: "https://timnha.herokuapp.com/api/get-address",
         dataType: "json",
         success: function (data) {
             $('#barAddress').empty();

@@ -49,5 +49,5 @@
 @endsection
 
 @push('bannerManagerment-js')
-<script src="{{ asset('js/dashboard/bannerManagement.js') }}"></script>
+<script src="/js/dashboard/bannerManagement.js"></script>
 @endpush

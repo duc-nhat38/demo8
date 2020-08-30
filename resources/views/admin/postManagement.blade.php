@@ -84,6 +84,6 @@
 
     @push('postManagerment-js')
     {{-- ck editor --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('js/dashboard/postManagement.js') }}"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/js/dashboard/postManagement.js"></script>
     @endpush

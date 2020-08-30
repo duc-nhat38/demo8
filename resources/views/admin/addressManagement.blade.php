@@ -73,5 +73,5 @@
 @endsection
 
 @push('addressManagerment-js')
-<script src="{{ asset('js/dashboard/addressManagement.js') }}"></script>
+<script src="/js/dashboard/addressManagement.js"></script>
 @endpush

@@ -4,7 +4,7 @@ var post = post || {};
 post.get = function () {
     $.ajax({
         method: 'GET',
-        url: 'http://127.0.0.1:8000/api/get-posts',
+        url: 'https://timnha.herokuapp.com/api/get-posts',
         dataType: 'json',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tablePost')) {
@@ -40,13 +40,13 @@ post.getDetail = function (id) {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/get-post-detail',
+        url: 'https://timnha.herokuapp.com/api/get-post-detail',
         data: {
             id: id,
         },
         success: function (data) {
             $('#titlePost').val(data.title);
-            $('#coverImage').attr('src', `http://127.0.0.1:8000/uploads/images/posts/${data.coverImage}`);
+            $('#coverImage').attr('src', `https://timnha.herokuapp.com/uploads/images/posts/${data.coverImage}`);
             CKEDITOR.instances.editor1.setData(data.content);
             $('#postId').val(data.id);
         }
@@ -70,7 +70,7 @@ post.save = function () {
         if ($('#postId').val() != 0) {
             $.ajax({
                 method: 'POST',
-                url: 'http://127.0.0.1:8000/api//post-update',
+                url: 'https://timnha.herokuapp.com/api//post-update',
                 dataType: 'json',
                 data: fomrPost,
                 contentType: false,
@@ -84,7 +84,7 @@ post.save = function () {
         } else {
             $.ajax({
                 method: 'POST',
-                url: 'http://127.0.0.1:8000/api/post-create',
+                url: 'https://timnha.herokuapp.com/api/post-create',
                 dataType: 'json',
                 data: fomrPost,
                 contentType: false,
@@ -115,7 +115,7 @@ post.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/post-destroy',
+                    url: 'https://timnha.herokuapp.com/api/post-destroy',
                     method: "DELETE",
                     dataType: "json",
                     data: {

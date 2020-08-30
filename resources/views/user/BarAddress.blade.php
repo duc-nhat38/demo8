@@ -6,5 +6,5 @@
     </ul>
 </div>
 @push('index')
-<script src="{{ asset("js/homePage/BarAddress.js") }}"></script>
+<script src="js/homePage/BarAddress.js"></script>
 @endpush
