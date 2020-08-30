@@ -16,5 +16,5 @@
     </a>
   </div>
 @push('index')
-<script src="js/homePage/Banner.js"></script>
+<script src="/js/homePage/Banner.js"></script>
 @endpush
