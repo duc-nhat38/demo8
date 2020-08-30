@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Post;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +26,7 @@ class PostSeeder extends Seeder
                 'user_id' => '1',
                 'title' => 'TO LEAVE THE.;',
                 'content' => 'TO LEAVE THE.',
-                'coverImage'=> 'anhnha.jpg',
+                'coverImage'=> 'anhnha2.jpg',
                 'created_at' => '2020-08-13 05:48:14',
                 'updated_at' => '2020-08-13 05:48:14'
             ], 

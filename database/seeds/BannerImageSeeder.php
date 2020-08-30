@@ -26,7 +26,7 @@ class BannerImageSeeder extends Seeder
             ],
             [
                 'title' => 'Bns nhà',
-                'imageAddress'=> 'anhnha.jpg',
+                'imageAddress'=> 'anhnha2.jpg',
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
@@ -36,7 +36,7 @@ class BannerImageSeeder extends Seeder
             ],
             [
                 'title' => 'Bns nhà',
-                'imageAddress'=> 'anhnha.jpg',
+                'imageAddress'=> 'anhnha3.jpg',
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
@@ -46,7 +46,7 @@ class BannerImageSeeder extends Seeder
             ],
             [
                 'title' => 'Bns nhà',
-                'imageAddress'=> 'anhnha.jpg',
+                'imageAddress'=> 'anhnha4.jpg',
                 'user_id' =>'1',
                 'partner'=>'VinHomes',
                 'show' => 1,
