@@ -17,18 +17,26 @@ class HomePhotoSeeder extends Seeder
             [
                 'photoAddress' => 'anhnha.jpg',
                 'house_id' => '1',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ],   
             [
                 'photoAddress' => 'anhnha.jpg',
                 'house_id' => '2',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ],    
             [
                 'photoAddress' => 'anhnha.jpg',
                 'house_id' => '3',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ],   
             [
                 'photoAddress' => 'anhnha.jpg',
                 'house_id' => '4',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ],   
         ]);
     }

@@ -11,4 +11,6 @@ interface DistrictRepositoryInterface
     public function update(Array $array);
 
     public function destroy($id);
+
+    public function create(Array $array);
 }

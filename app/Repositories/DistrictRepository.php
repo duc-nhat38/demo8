@@ -17,13 +17,16 @@ class DistrictRepository implements DistrictRepositoryInterface
     public function show($id)
     {
         $address = District::with('address:id,address')->where('id', $id)->get();
-        // dd($address);
+        
         return $address[0];
     }
     public function update(array $array)
     {
         $district = District::findOrFail($array['id']);
-        $district->update(['district' => $array['district']]);
+        $district->update([
+            'district' => $array['district'],
+            'address_id' => $array['address_id'],
+            ]);
 
         return $district;
     }
@@ -33,5 +36,13 @@ class DistrictRepository implements DistrictRepositoryInterface
         $district->delete();
 
         return $district;
+    }
+
+    public function create(array $array){
+        
+        return District::create([
+            'district' => $array['district'],
+            'address_id' => $array['address_id'],
+        ]);
     }
 }

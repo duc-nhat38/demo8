@@ -13,4 +13,6 @@ interface AddressRepositoryInterface
     public function destroy($id);
 
     public function getAddressAll();
+
+    public function create($data);
 }

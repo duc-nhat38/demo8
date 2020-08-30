@@ -3,7 +3,7 @@
 <head>
     @include('partialsAdmin.head')
     <title>@yield('title')</title>
-
+    <link rel="icon" href="{!! asset("uploads/images/LogoFavicon.png") !!}">
 </head>
 <body>
     <!-- Page Wrapper -->

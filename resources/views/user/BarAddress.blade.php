@@ -6,26 +6,5 @@
     </ul>
 </div>
 @push('index')
-    <script>
-        var address = address || {};
-        address.bar = function(){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('get.address') }}",
-                dataType: "json",
-                success: function (data) {
-                    $('#barAddress').empty();
-                    $.each(data, function (i, value) { 
-                         $('#barAddress').append(`
-                         <a href="/address-house/${value.id}"><li class="list-group-item">${value.address}</li></a>
-                         `);
-                    });
-                }
-            });
-        }
-
-        $(document).ready(function () {
-            address.bar();
-        });
-    </script>
+<script src="{{ asset("js/homePage/BarAddress.js") }}"></script>
 @endpush

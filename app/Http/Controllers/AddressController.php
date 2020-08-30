@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
+use App\Http\Requests\Address;
 use App\Repositories\AddressRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -26,10 +26,10 @@ class AddressController extends Controller
         return response()->json($address, 200);
     }
 
-    public function update(Request $request)
+    public function update(Address $address)
     {
-        $attribute = $request->all();
-        $address = $this->addressRepository->update($attribute);
+        $value = $address->all();
+        $address = $this->addressRepository->update($value);
 
         return response()->json($address, 200);
     }
@@ -58,5 +58,13 @@ class AddressController extends Controller
         $addresses = $this->addressRepository->getAddressAll();
 
         return response()->json($addresses, 200);
+    }
+
+    public function create(Address $address){
+        $value = $address->all();
+
+        $address = $this->addressRepository->create($value);
+
+        return response()->json($address, 200);
     }
 }

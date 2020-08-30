@@ -1,9 +1,14 @@
 @extends('layouts.HomePage')
 
+@section('title')
+    Các bài đăng liên quan về {{ $businessHouse[0]['businessName'] }}
+@endsection
+
 @section('content')
-<div class="container">
+@include('user.Search')
+<div class="container mt-5">
     <div class="text-center bg-warning p-2 rounded">
-        <h4>Các bài đăng liên quan về "{{ $businessHouse[0]['businessName'] }}":</h4>
+        <h4>Các bài đăng liên quan về " {{ $businessHouse[0]['businessName'] }} ":</h4>
     </div>
     <div class="w-100 d-flex flex-wrap">
         @foreach ($businessHouse as $item)
@@ -17,7 +22,7 @@
                         href="{{ route('business.house', $item['business_type_id']) }}">{{ $item['businessName'] }}</a></span><br>
                 <span class="card-text">Diện tích : {{ $item['area'] }} m<sup>2</sup></span><br>
                 <span class="card-text">Giá : {{ number_format($item['price']) }} đ</span><br>
-                <span class="card-text">Người đăng : <a href="">{{ $item['name'] }}</a></span><br>
+                <span class="card-text">Người đăng : <a href="{{ route('get.user',$item['user_id']) }}">{{ $item['name'] }}</a></span><br>
                 <span class="card-text"><small class="text-muted">Thời gian : {{ $item['day_create'] }}</small></span>
             </div>
         </div>

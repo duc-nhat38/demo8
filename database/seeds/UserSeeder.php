@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
                 'email' => 'ducpham123@gmail.com',
                 'password' =>'$2y$10$F70xmZjpBmDUzCdJzB.n1emC.AbkXEYA9A/mMATANeWSYUVlHxIzi',
                 'isAdmin'=> 1,
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ],  
         ]);
     }

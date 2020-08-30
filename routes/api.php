@@ -46,6 +46,8 @@ Route::get('/get-address-all', 'AddressController@getAddressAll')->name('address
 
 Route::get('/get-address-detail', 'AddressController@show')->name('address.detail');
 
+Route::post('/address-create', 'AddressController@create')->name('address.create');
+
 Route::put('/address-update', 'AddressController@update')->name('address.update');
 
 Route::delete('/address-destroy', 'AddressController@destroy')->name('address.destroy');
@@ -53,6 +55,8 @@ Route::delete('/address-destroy', 'AddressController@destroy')->name('address.de
 Route::get('/get-district', 'DistrictController@index')->name('get.district');
 
 Route::get('/get-district-detail', 'DistrictController@show')->name('district.detail');
+
+Route::post('/district-create', 'DistrictController@create')->name('district.create');
 
 Route::put('/district-update', 'DistrictController@update')->name('district.update');
 

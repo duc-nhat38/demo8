@@ -20,35 +20,28 @@
       @endif
       @else
       <li class="nav-item pt-2 active">
-        <div class="d-flex position-relative p-1" id="cardDrop" data-id="{{ Auth::user()->id }}">
-          <img src="{{ asset('uploads/images/users/user-'.Auth::user()->id.'/'.Auth::user()->information->avatar)}}"
-            alt="" class="rounded-circle" id="avatar">
-          <span class="ml-1 mt-1">{{ Auth::user()->name }}</span>
-          <div class="card position-absolute" style="width: 15rem;" id="card-user">
-            <ul class="list-group list-group-flush">
-              @if (Auth::user()->isAdmin == 1)
-              <li class="list-group-item">
-                <a class="text-decoration-none" href="{{ route('dashboard') }}"><i class="far fa-address-card"></i>
-                  Dashboard</a>
-              </li>
-              @endif
-              <li class="list-group-item">
-                <a class="text-decoration-none" href="{{ route('user.information', Auth::user()->id) }}"><i
-                    class="far fa-address-card"></i> Cá nhân</a>
-              </li>
-              <li class="list-group-item">
-                <a class="text-decoration-none" href="{{ route('password.request') }}"><i class="fas fa-user-cog"></i> Thay đổi mật khẩu</a>
-              </li>
-              <li class="list-group-item ">
-                <a class="collapse-item text-decoration-none" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                  <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
-                </form>
-              </li>
-            </ul>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="{{ asset('uploads/images/users/user-'.Auth::user()->id.'/'.Auth::user()->information->avatar)}}"
+              alt="" class="rounded-circle" id="avatar">
+            <span class="ml-1 mt-1">{{ Auth::user()->name }}</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right remove-hover">
+            @if (Auth::user()->isAdmin == 1)
+            <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="far fa-address-card"></i>
+              Dashboard</a>
+            @endif
+            <a class="dropdown-item" href="{{ route('user.information', Auth::user()->id) }}"><i
+                class="far fa-address-card"></i> Cá nhân</a>
+            <a class="dropdown-item" href="{{ route('password.request') }}"><i class="fas fa-user-cog"></i> Thay đổi mật
+              khẩu</a>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
+                class="fas fa-sign-out-alt"></i> {{ __('Đăng xuất') }}</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
           </div>
         </div>
       </li>
@@ -84,22 +77,24 @@
           <div class="form-group row">
             <div class="col w-100">
               <label for="inputBusiness">Thể loại</label>
-              <select class="form-control inputBusiness" id="inputBusiness" name="inputBusiness" data-rule-required='true'
-                data-msg-required="Thể loại không được để trống">
+              <select class="form-control inputBusiness" id="inputBusiness" name="inputBusiness"
+                data-rule-required='true' data-msg-required="Thể loại không được để trống">
 
               </select>
             </div>
             <div class="col w-100">
               <label for="inputDistrict">Quận / Huyện</label>
-              <select class="form-control inputDistrict" id="inputDistrict" name="inputDistrict" data-rule-required='true'
-                data-msg-required="Quận / Huyện không được để trống" onchange="district.addressDetail()">
+              <select class="form-control inputDistrict" id="inputDistrict" name="inputDistrict"
+                data-rule-required='true' data-msg-required="Quận / Huyện không được để trống"
+                onchange="district.addressDetail()">
 
               </select>
             </div>
             <div class="col">
               <label for="inputAddress">Tỉnh / Thành :</label>
-              <input type="text" class="form-control inputAddress" name="inputAddress" id="inputAddress" placeholder="Tỉnh / Thành"
-                data-rule-required='true' data-msg-required="Tỉnh / Thành không được để trống" readonly>
+              <input type="text" class="form-control inputAddress" name="inputAddress" id="inputAddress"
+                placeholder="Tỉnh / Thành" data-rule-required='true'
+                data-msg-required="Tỉnh / Thành không được để trống" readonly>
             </div>
 
             <div class="col">
@@ -160,149 +155,6 @@
   </div>
 </div>
 @push('header')
-{{-- ck editor --}}
 <script src="/ckeditor/ckeditor.js"></script>
-<script>
-  CKEDITOR.replace('editor2'); 
-</script>
-<script>
-  var business = business || {};
-        business.get = function(){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('get.business') }}",
-                dataType: "json",
-                success: function (data) {
-                    $('#businessType').empty();
-                    $('#businessType').append(`
-                        
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">TRANG CHỦ <span class="sr-only">(current)</span></a>
-                        </li>
-                    `);
-                    $.each(data, function (i, value) { 
-                        $('#businessType').append(`
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/business/${value.id}">${(value.typeName).toUpperCase()}</a>
-                        </li>
-                        `);
-                        $('.inputBusiness').append(`
-                        <option value="${value.id}">${value.typeName}</option>
-                    `);
-                    });
-                    $('#businessType').append(`
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/posts">TIN TỨC</a>
-                        </li>
-                    `);                   
-                }
-            });
-        }
-
-        business.inputBusiness = function(){
-          $.ajax({
-                type: "GET",
-                url: "{{ route('get.business') }}",
-                dataType: "json",
-                success: function (data) {
-                  $('#inputBusiness').empty();
-                  $.each(data, function (i, value) { 
-                    $('#inputBusiness').append(`
-                        <option value="${value.id}">${value.typeName}</option>
-                    `);
-                  });
-                }
-          });
-        }
-  var district = district || {};
-  district.inputDistrict = function(){
-    $.ajax({
-      type: "GET",
-      url: "{{ route('get.district') }}",
-      dataType: "json",
-      success: function (data) {
-        $('#inputDistrict').empty();
-        $.each(data, function (i, value) { 
-          $('.inputDistrict').append(`
-            <option value="${value.id}"> ${value.district}</option>
-          `);
-        });
-        district.addressDetail();
-      }
-
-    });
-  }
-
-  district.addressDetail = function(){
-    $.ajax({
-      type: "GET",
-      url: "{{ route('district.detail') }}",
-      data: {
-        id: $('#inputDistrict').val(),
-      },
-      dataType: "json",
-      success: function (data) {
-        $('.inputAddress').val(data.address.address);
-      }
-    });
-  }
-        function createHouse(){
-            if (checkValueInputFile() && $('#formInputHouse').valid()){
-              $('#formInputHouse').submit();
-              formPostHouseOff();
-            }
-        }
-
-        function formPostHouseOn() {
-          if($('#cardDrop').data('id') != null){
-            $('#formPostHouse').modal('show');
-          }else{
-            $('#alertLogin').modal('show');
-          }
-          
-        }
-        function formPostHouseOff(){
-          $('#inputTitle').val('');
-          $('#inputArea').val('');
-          $('#inputPrice').val('');
-          $('#inputFile').val('');
-          district.inputDistrict();
-          business.inputBusiness();
-          CKEDITOR.instances.editor2.setData('');
-          $('#formPostHouse').modal('hide');
-          $('label.error').hide();
-        }
-       function checkValueInputFile(data){
-         let inputFile = $("#inputFile").prop('files');
-          if(inputFile.length > 6){
-            $('#inputFileError').text('* Số lượng ảnh vượt quá số lượng cho phép .')
-            $('#inputFileError').show();
-            return false;
-          }else{
-            $('#inputFileError').hide();
-          }
-          
-          return true;
-          
-       }
-       
-    $(document).ready( function () {   
-        business.get();
-        district.inputDistrict();
-        business.inputBusiness();
-        
-        $('#cardDrop').click(function(){
-            $('#card-user').show();
-        });
-        $('#card-user').hover(function(){
-          $('#card-user').show();
-        },function(){
-          $('#card-user').hide();
-        }
-        );
-        $('#inputBusiness').select2();
-        $('#inputDistrict').select2();
-    });
-    
-</script>
+<script src="{{ asset('js/homePage/Header.js') }}"></script>
 @endpush

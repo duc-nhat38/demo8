@@ -43,4 +43,12 @@ class AddressRepository implements AddressRepositoryInterface
 
         return $addresses;
     }
+
+    public function create($data){
+        $address = Address::create([
+            'address' => $data['address'],
+        ]);
+
+        return $address;
+    }
 }

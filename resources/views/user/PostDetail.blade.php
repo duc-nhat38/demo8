@@ -1,11 +1,15 @@
 @extends('layouts.HomePage')
 
+@section('title')
+{{ $post['title'] }} - Tin tức
+@endsection
 @section('content')
-<div class="container">
+@include('user.Search')
+<div class="container mt-5">
     <div class="d-flex w-100 post-detail">
         <div class="col-8">
             @if ($post)
-            <h3>{{ $post['title'] }}</h3>
+            <h5>{{ $post['title'] }}</h5>
             <div class="d-flex  justify-content-between">
                 <span><small>{{ $post['day_create'] }}</small></span>
                 <span><small><i class="fas fa-eye"></i> {{ $post['view'] }}</small></span>
@@ -31,7 +35,8 @@
                     <h6 class="card-text">
                         <a class="text-decoration-none" href="{{ route('post.show', $item['id']) }}">{{ $item['title'] }}</a>
                     </h6>
-                    <span><small></small></span>
+                    <span><small>Lượt xem : {{ $item['view'] }} <i class="far fa-eye"></i></small></span><br>
+                    <span><small>Ngày đăng : {{ $item['day_create'] }}</small></span>
                 </div>
             </div>
             @endforeach

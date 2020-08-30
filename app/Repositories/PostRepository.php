@@ -12,7 +12,7 @@ class PostRepository implements PostRepositoryInterface
         $posts = Post::select('posts.*', 'users.name')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(15);
         foreach($posts as $post){
             
             $post['day_create'] = $post['created_at']->format('H:m d-m-Y');
@@ -88,8 +88,28 @@ class PostRepository implements PostRepositoryInterface
 
     public function postRandom()
     {
-        $views = Post::inRandomOrder()->limit(8)->get();
+        $postRandom = Post::inRandomOrder()->limit(8)->get();
 
-        return $views;
+        foreach ($postRandom as $view) {
+
+            $view['day_create'] = $view['created_at']->format('H:m d/m/Y');
+        }
+
+        return $postRandom;
+    }
+
+    public function postManagement()
+    {
+        $posts = Post::select('posts.*', 'users.name')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        foreach($posts as $post){
+            
+            $post['day_create'] = $post['created_at']->format('H:m d-m-Y');
+            $post['day_create'] = $post['updated_at']->format('H:m d-m-Y');
+        }
+
+        return $posts;
     }
 }

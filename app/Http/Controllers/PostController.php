@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = $this->postRepository->all();
+        $posts = $this->postRepository->postManagement();
 
         return response()->json($posts, 200);
     }

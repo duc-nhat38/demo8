@@ -9,4 +9,8 @@ interface PostRepositoryInterface extends RepositoryInterface
     public function view($id);
 
     public function postRandom();
+
+    public function postManagement();
+
+    
 }

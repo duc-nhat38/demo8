@@ -1,8 +1,11 @@
 @extends('layouts.HomePage')
 
+@section('title')
+    Tìm kiếm
+@endsection
 @section('content')
 @include('user.Search')
-<div class="container">
+<div class="container mt-5">
     @if (count($resultHouse) != 0)
     <div class="w-100 rounded p-2 bg-secondary text-white">
         <span>Có <b class="p-1 rounded bg-warning text-dark">{{ count($resultHouse) }}</b> kết quả được tìm thấy. </span>

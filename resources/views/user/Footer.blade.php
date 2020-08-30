@@ -10,20 +10,20 @@
             <p><i class="fas fa-map-marker-alt fa-lg"></i>  Tâng 4, 28 Nguyễn Tri Phương, TP Huế</p>
             <p><i class="fas fa-phone-alt fa-lg"></i> 0961694997</p>
             <div class="d-flex justify-content-around mt-2">
-                <i class="fas fa-envelope fa-lg text-dark"></i>
-                <i class="fab fa-facebook-f fa-lg text-dark"></i>
-                <i class="fab fa-twitter fa-lg text-dark"></i>
+                <a href="javascript:;" title="Email"><i class="fas fa-envelope fa-lg text-dark"></i></a>
+                <a href="javascript:;" title="Facebook"><i class="fab fa-facebook-f fa-lg text-dark"></i></a>
+                <a href="javascript:;" title="Twitter"><i class="fab fa-twitter fa-lg text-dark"></i></a>
             </div>
         </div>
         <div class="text-center">
             <h4>HƯỚNG DẪN & QUY ĐỊNH</h4>
             <div>
-            <p><a class="text-decoration-none" href="">Quy định đăng tin</a></p>
-            <p><a class="text-decoration-none" href="">Quy chế hoạt động</a></p>
-            <p><a class="text-decoration-none" href="">Điều khoản thỏa thuận</a></p>
-            <p><a class="text-decoration-none" href="">Chính sách bảo mật</a></p>
-            <p><a class="text-decoration-none" href="">Báo giá & hỗ trợ</a></p>
-            <p><a class="text-decoration-none" href="">CLiên hệ</a></p>
+            <p><a class="text-decoration-none text-dark" href="javascript:;">Quy định đăng tin</a></p>
+            <p><a class="text-decoration-none text-dark" href="javascript:;">Quy chế hoạt động</a></p>
+            <p><a class="text-decoration-none text-dark" href="javascript:;">Điều khoản thỏa thuận</a></p>
+            <p><a class="text-decoration-none text-dark" href="javascript:;">Chính sách bảo mật</a></p>
+            <p><a class="text-decoration-none text-dark" href="javascript:;">Báo giá & hỗ trợ</a></p>
+            <p><a class="text-decoration-none text-dark" href="javascript:;">CLiên hệ</a></p>
             </div>
         </div>
         <div>

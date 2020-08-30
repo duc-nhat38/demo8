@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\District;
 use App\Repositories\DistrictRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -47,9 +48,9 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(District $district)
     {
-        $attribute = $request->all();
+        $attribute = $district->all();
         $district = $this->districtRepository->update($attribute);
 
         return response()->json($district, 200);
@@ -65,6 +66,13 @@ class DistrictController extends Controller
     {
         $id = $request->id;
         $district = $this->districtRepository->destroy($id);
+
+        return response()->json($district, 200);
+    }
+
+    public function create(District $district){
+        $value = $district->all();
+        $district = $this->districtRepository->create($value);
 
         return response()->json($district, 200);
     }

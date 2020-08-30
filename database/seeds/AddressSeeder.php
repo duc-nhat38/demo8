@@ -16,12 +16,19 @@ class AddressSeeder extends Seeder
         DB::table('addresses')->insert([
             [
                 'address' => 'Huế',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
+
             ],
             [
                 'address' => 'Ha Nội',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ],
             [
                 'address' => 'Sài Gòn',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
             ]
         ]);
     }

@@ -19,7 +19,7 @@
         @endif        
     </div>
     <div class="d-flex justify-content-center mt-2">
-        <a href="" class="btn btn-warning text-dark ">Xem thêm >></a>
+        <a href="{{ route('post.all') }}" class="btn btn-warning text-dark ">Xem thêm >></a>
     </div>
 </div>
 

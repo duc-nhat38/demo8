@@ -1,7 +1,10 @@
 @extends('layouts.HomePage')
-
+@section('title')
+{{ $information['name'] }} - Trang cá nhân
+@endsection
 @section('content')
-<div class="container pt-5">
+@include('user.Search')
+<div class="container mt-5">
     <div class="w-100 d-flex border rounded p-2 information bg-white">
         <div class="col-3 p-0 text-center">
             <img src="{{  asset('uploads/images/users/user-'.$information["id"].'/'.$information["avatar"]) }}" alt="avatar" class="rounded-circle">
@@ -27,7 +30,7 @@
                     class="far fa-envelope fa-lg text-sucess ml-1"></i> <i
                     class="fas fa-phone-square-alt fa-lg text-sucess ml-1"></i></p>
             @else
-            <p>Chưa xác minh</p>
+            <p><i class="fas fa-user-check fa-lg"></i>Chưa xác minh</p>
             @endif
 
         </div>
