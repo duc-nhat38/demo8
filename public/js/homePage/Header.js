@@ -4,7 +4,7 @@ CKEDITOR.replace('editor2');
         business.get = function(){
             $.ajax({
                 type: "GET",
-                url: "https://timnha.herokuapp.com/api/get-business",
+                url: "/api/get-business",
                 dataType: "json",
                 success: function (data) {
                     $('#businessType').empty();
@@ -36,7 +36,7 @@ CKEDITOR.replace('editor2');
         business.inputBusiness = function(){
           $.ajax({
                 type: "GET",
-                url: "https://timnha.herokuapp.com/api/get-business",
+                url: "/api/get-business",
                 dataType: "json",
                 success: function (data) {
                   $('#inputBusiness').empty();
@@ -52,7 +52,7 @@ CKEDITOR.replace('editor2');
   district.inputDistrict = function(){
     $.ajax({
       type: "GET",
-      url: "https://timnha.herokuapp.com/api/get-district",
+      url: "/api/get-district",
       dataType: "json",
       success: function (data) {
         $('#inputDistrict').empty();
@@ -70,7 +70,7 @@ CKEDITOR.replace('editor2');
   district.addressDetail = function(){
     $.ajax({
       type: "GET",
-      url: "https://timnha.herokuapp.com/api/get-district-detail",
+      url: "/api/get-district-detail",
       data: {
         id: $('#inputDistrict').val(),
       },

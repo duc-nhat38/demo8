@@ -20,7 +20,7 @@ business.validate = function () {
 business.searchBusiness = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-business",
+        url: "/api/get-business",
         dataType: "json",
         success: function (data) {
             $('#selectBusiness').empty();
@@ -43,7 +43,7 @@ var address = address || {};
 address.searchAddress = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-address",
+        url: "/api/get-address",
         dataType: "json",
         success: function (data) {
             $('#selectAddress').empty();
@@ -65,7 +65,7 @@ address.select = function (data) {
     let id = data.value;
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-address-detail",
+        url: "/api/get-address-detail",
         data: {
             id: id,
         },

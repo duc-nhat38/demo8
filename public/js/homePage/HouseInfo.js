@@ -2,7 +2,7 @@ var house = house || {};
 house.user = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/show-user",
+        url: "/api/show-user",
         data: {
             id: $('#userHouse').attr('data-id'),
         },
@@ -13,7 +13,7 @@ house.user = function () {
             $('#userHouse').append(`
                     <div class="d-flex row ">
                     <div class="col-2 d-flex align-items-center">
-                        <img src="https://timnha.herokuapp.com/uploads/images/users/user-${data.id}/${data.avatar}" alt="avatar" class="rounded-circle image-center">
+                        <img src="/uploads/images/users/user-${data.id}/${data.avatar}" alt="avatar" class="rounded-circle image-center">
                     </div>
                     <div class="p-2 col-9">
                         <p><a href="/user/${data.id}">${data.name}</a>  <i class="fas fa-check-circle ${role}"></i></p>
@@ -32,7 +32,7 @@ var comment = comment || {};
 comment.getCmtHouse = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-house-comments",
+        url: "/api/get-house-comments",
         data: {
             id: $('#commentHouse').attr('data-id'),
         },
@@ -54,7 +54,7 @@ comment.getCmtHouse = function () {
                 $('#listComment').append(`
                             <div class="d-flex p-2 my-2 border rounded position-relative">
                                 <div class="col-1 p-0 d-flex align-items-center">
-                                    <img src="https://timnha.herokuapp.com/uploads/images/users/user-${value.user_id}/${value.avatar}" alt="" class="rounded-circle">
+                                    <img src="/uploads/images/users/user-${value.user_id}/${value.avatar}" alt="" class="rounded-circle">
                                 </div>
                                 <div class="col-11 ml-1 pl-4 content-comment" data-id="${value.id}">
                                     <div class="d-flex justify-content-between">
@@ -84,7 +84,7 @@ comment.create = function (data) {
             let id = $(data).data('id');
             $.ajax({
                 type: "POST",
-                url: "https://timnha.herokuapp.com/api/comment-house",
+                url: "/api/comment-house",
                 data: {
                     user_id: id,
                     house_id: $('#commentHouse').attr('data-id'),
@@ -130,7 +130,7 @@ comment.editComment = function (data) {
         });
         $.ajax({
             type: "PUT",
-            url: "https://timnha.herokuapp.com/api/comment-house-edit",
+            url: "/api/comment-house-edit",
             data: {
                 id: $('.content-comment').data('id'),
                 content: content,
@@ -161,7 +161,7 @@ comment.delete = function (data) {
                 });
                 $.ajax({
                     type: "DELETE",
-                    url: "https://timnha.herokuapp.com/api/comment-delete'",
+                    url: "/api/comment-delete'",
                     data: {
                         id: id,
                     },
@@ -185,7 +185,7 @@ var vote = vote || {};
 vote.getRateHouse = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-house-votes",
+        url: "/api/get-house-votes",
         data: {
             house_id: $('#commentHouse').data('id'),
         },
@@ -238,7 +238,7 @@ vote.getMyVote = function () {
     if ($('#voteHouse').data('id') != 0) {
         $.ajax({
             type: 'GET',
-            url: "https://timnha.herokuapp.com/api/get-house-votes",
+            url: "/api/get-house-votes",
             data: {
                 user_id: $('#voteHouse').data('id'),
                 house_id: $('#commentHouse').data('id'),
@@ -289,7 +289,7 @@ vote.rating = function (data) {
         });
         $.ajax({
             type: "POST",
-            url: "https://timnha.herokuapp.com/api/vote-house",
+            url: "/api/vote-house",
             data: {
                 rate: rate,
                 user_id: $('#voteHouse').data('id'),

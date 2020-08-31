@@ -5,7 +5,7 @@ user.getUsers = function () {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'https://timnha.herokuapp.com/api/get-users',
+        url: '/api/get-users',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tableUser')) {
                 $('#tableUser').DataTable().destroy();
@@ -21,7 +21,7 @@ user.getUsers = function () {
                 $('#tableUser tbody').append(`                       
             <tr>
                 <td scope="row">${i+1}</td>
-                <td><img src="https://timnha.herokuapp.com/uploads/images/users/user-${item.id}/${item.avatar}"></td>
+                <td><img src="/uploads/images/users/user-${item.id}/${item.avatar}"></td>
                 <td>${item.name}</td>                            
                 <td>${item.email}</td>                            
                 <td>
@@ -52,7 +52,7 @@ user.lockUser = function (userId, locked) {
     $.ajax({
         method: "PATCH",
         dataType: "json",
-        url: 'https://timnha.herokuapp.com/api/lock-user',
+        url: '/api/lock-user',
         data: {
             id: userId,
             locked: locked,
@@ -73,7 +73,7 @@ user.power = function (userId, role) {
     $.ajax({
         method: "PATCH",
         dataType: "json",
-        url: 'https://timnha.herokuapp.com/api/power-user',
+        url: '/api/power-user',
         data: {
             id: userId,
             role: role,
@@ -89,7 +89,7 @@ user.showInfoUser = function (userId) {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'https://timnha.herokuapp.com/api/show-user',
+        url: '/api/show-user',
         data: {
             id: userId,
         },
@@ -98,7 +98,7 @@ user.showInfoUser = function (userId) {
             $('.body-show').empty();
             $('.body-show').append(`
         <div class="card position-relative m-auto border-0" style="width: 29rem;">
-            <img class="card-img-top m-auto" src="https://timnha.herokuapp.com/uploads/images/users/user-${data.id}/${data.avatar}" alt="Ảnh đại diện">
+            <img class="card-img-top m-auto" src="/uploads/images/users/user-${data.id}/${data.avatar}" alt="Ảnh đại diện">
         
         <div class="card-body">
             <h5 class="card-title">Tên : ${(data.fullName != null)? data.fullName : 'Chưa có'}</h5>

@@ -2,7 +2,7 @@ var business = business || {};
 business.bar = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-business",
+        url: "/api/get-business",
         dataType: "json",
         success: function (data) {
             $('#barBusiness').empty();

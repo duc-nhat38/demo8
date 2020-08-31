@@ -3,7 +3,7 @@ address.get = function () {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'https://timnha.herokuapp.com/api/get-address',
+        url: '/api/get-address',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tableAdd')) {
                 $('#tableAdd').DataTable().destroy();
@@ -31,7 +31,7 @@ address.get = function () {
 address.detail = function (id) {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-address-detail",
+        url: "/api/get-address-detail",
         data: {
             id: id,
         },
@@ -116,7 +116,7 @@ address.save = function () {
             });
             $.ajax({
                 method: "PUT",
-                url: "https://timnha.herokuapp.com/api/address-update",
+                url: "/api/address-update",
                 data: {
                     id: $('#idHidden').val(),
                     address: $('#nameEdit').val(),
@@ -139,7 +139,7 @@ address.save = function () {
             });
             $.ajax({
                 type: "POST",
-                url: "https://timnha.herokuapp.com/api/address-create",
+                url: "/api/address-create",
                 data: {
                     address: $('#nameEdit').val(),
                 },
@@ -180,7 +180,7 @@ address.delete = function (id) {
                 });
                 $.ajax({
                     type: "DELETE",
-                    url: "https://timnha.herokuapp.com/api/address-destroy",
+                    url: "/api/address-destroy",
                     data: {
                         id: id,
                     },
@@ -207,7 +207,7 @@ district.get = function () {
     $.ajax({
         method: "GET",
         dataType: "json",
-        url: 'https://timnha.herokuapp.com/api/get-district',
+        url: '/api/get-district',
         success: function (data) {
             if ($.fn.DataTable.isDataTable('#tableDistrict')) {
                 $('#tableDistrict').DataTable().destroy();
@@ -234,7 +234,7 @@ district.get = function () {
 district.detail = function (id) {
     $.ajax({
         type: "GET",
-        url: 'https://timnha.herokuapp.com/api/get-district-detail',
+        url: '/api/get-district-detail',
         data: {
             id: id,
         },
@@ -299,7 +299,7 @@ district.create = function () {
     `);
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-address",
+        url: "/api/get-address",
         dataType: "json",
         success: function (data) {
             $('#selectAddressFormCreate').empty();
@@ -329,7 +329,7 @@ district.edit = function (id, districtName, address_id) {
     `);
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-address",
+        url: "/api/get-address",
         dataType: "json",
         success: function (data) {
             $('#selectAddressFormCreate').empty();
@@ -354,7 +354,7 @@ district.save = function () {
             });
             $.ajax({
                 method: "PUT",
-                url: "https://timnha.herokuapp.com/api/district-update",
+                url: "/api/district-update",
                 data: {
                     id: $('#idHidden').val(),
                     district: $('#nameEdit').val(),
@@ -378,7 +378,7 @@ district.save = function () {
             });
             $.ajax({
                 type: "POST",
-                url: "https://timnha.herokuapp.com/api/district-create",
+                url: "/api/district-create",
                 data: {
                     id: '0',
                     district: $('#nameEdit').val(),
@@ -420,7 +420,7 @@ district.delete = function (id) {
                 });
                 $.ajax({
                     type: "DELETE",
-                    url: "https://timnha.herokuapp.com/api/district-destroy",
+                    url: "/api/district-destroy",
                     data: {
                         id: id,
                     },

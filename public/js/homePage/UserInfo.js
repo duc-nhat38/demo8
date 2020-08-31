@@ -37,7 +37,7 @@ user.submitDataEdit = function (data) {
         });
         $.ajax({
             type: "PATCH",
-            url: "https://timnha.herokuapp.com/api/update-user",
+            url: "/api/update-user",
             data: {
                 id: id,
                 fullName: $('#fullName').val(),
@@ -95,7 +95,7 @@ user.updateAvatar = function () {
         });
         $.ajax({
             type: "POST",
-            url: "https://timnha.herokuapp.com/api/update-avatar-user",
+            url: "/api/update-avatar-user",
             data: formData,
             contentType: false,
             processData: false,
@@ -122,7 +122,7 @@ user.updateAvatar = function () {
 district.changeDistrict = function () {
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-district-detail",
+        url: "/api/get-district-detail",
         data: {
             id: $('#inputEditDistrict').val(),
         },
@@ -138,7 +138,7 @@ function formEditHouseOn(data) {
 
     $.ajax({
         type: "GET",
-        url: "https://timnha.herokuapp.com/api/get-house-detail",
+        url: "/api/get-house-detail",
         data: {
             id: $(data).data('houseid')
         },
@@ -156,7 +156,7 @@ function formEditHouseOn(data) {
             $.each(data.photos, function (i, value) {
                 $('#showPhotoHouse').append(`
                      <div class="position-relative">
-                        <img src="https://timnha.herokuapp.com/uploads/images/houses/house-${value.house_id}/${value.photoAddress}" alt="">
+                        <img src="/uploads/images/houses/house-${value.house_id}/${value.photoAddress}" alt="">
                         <a href="javascript:;" onclick="deletePhotoHouse(this)"  data-photoid="${value.id}" class="position-absolute btn btn-link text-white"><i class="fas fa-times"></i></a>
                     </div>
                      
@@ -232,7 +232,7 @@ function houseDelete(data) {
                 });
                 $.ajax({
                     type: "DELETE",
-                    url: "https://timnha.herokuapp.com/api/house-delete",
+                    url: "/api/house-delete",
                     data: {
                         id: id,
                     },
