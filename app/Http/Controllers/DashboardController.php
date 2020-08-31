@@ -16,6 +16,8 @@ class DashboardController extends Controller
     {
         if($this->checkAdmin()) {
             return view('admin.Index');
+        }else{
+            return view('auth.login');
         }
         
     }
@@ -45,6 +47,6 @@ class DashboardController extends Controller
         if(Auth::check() && Auth::user()->isAdmin == 1) {
             return true;
         }
-        return view('auth.login');
+        return false;
     }
 }
