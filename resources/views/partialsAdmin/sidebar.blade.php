@@ -81,11 +81,17 @@
       <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="{{ route('logout') }}"
+          <span class="collapse-item">
+            <form action="{{ route('logout') }}" method="post">
+              @csrf
+              <button type="submit" class="btn btn-warning" id="account_control"> Đăng xuất</button>
+            </form>
+          </span>
+          {{-- <span class="collapse-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
               {{ __('Logout') }}
-          </a>
+          </span> --}}
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
