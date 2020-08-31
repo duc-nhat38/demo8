@@ -36,16 +36,16 @@
                 class="far fa-address-card"></i> Cá nhân</a>
             <a class="dropdown-item" href="{{ route('password.request') }}"><i class="fas fa-user-cog"></i> Thay đổi mật
               khẩu</a>
-            <span class="dropdown-item">
+            <span class="dropdown-item"><i
+              class="fas fa-sign-out-alt"></i>
               <form action="{{ route('logout') }}" method="post">
                 @csrf
-                <a href="javascript:;" type="submit">Đăng xuất</a>
+                <button type="submit" class="btn btn-warning" id="account_control"> Đăng xuất</button>
                 {{-- <input type="submit" class="btn btn-primary" id="account_control" value="Đăng xuất"> --}}
-            </form>
+              </form>
             </span>
             {{-- <a class="dropdown-item" href="{{ route('logout') }}"
-              onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
-                class="fas fa-sign-out-alt"></i> {{ __('Đăng xuất') }}</a>
+            onclick="event.preventDefault();document.getElementById('logout-form').submit();"> {{ __('Đăng xuất') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
             </form> --}}
