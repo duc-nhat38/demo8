@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -13,11 +14,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.Index');
+        if($this->checkAdmin()) {
+            return view('admin.Index');
+        }
+        
     }
 
     public function userManager()
-    {
+    {   
+        
         return view('admin.userManagement');
     }
 
@@ -35,38 +40,11 @@ class DashboardController extends Controller
     {
         return view('admin.addressManagement');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    
+    public function checkAdmin(){
+        if(Auth::check() && Auth::user()->isAdmin == 1) {
+            return true;
+        }
+        return view('auth.login');
     }
 }
