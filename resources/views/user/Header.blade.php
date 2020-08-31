@@ -39,7 +39,8 @@
             <span class="dropdown-item">
               <form action="{{ route('logout') }}" method="post">
                 @csrf
-                <input type="submit" class="btn btn-primary" id="account_control" value="Đăng xuất">
+                <a href="javascript:;" type="submit">Đăng xuất</a>
+                {{-- <input type="submit" class="btn btn-primary" id="account_control" value="Đăng xuất"> --}}
             </form>
             </span>
             {{-- <a class="dropdown-item" href="{{ route('logout') }}"
