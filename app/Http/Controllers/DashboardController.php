@@ -24,23 +24,42 @@ class DashboardController extends Controller
 
     public function userManager()
     {   
+        if($this->checkAdmin()) {
+            return view('admin.userManagement');
+        }else{
+            return view('auth.login');
+        }
         
-        return view('admin.userManagement');
     }
 
     public function bannerManager()
     {
-        return view('admin.bannerManagement');
+        if($this->checkAdmin()) {
+            return view('admin.bannerManagement');
+        }else{
+            return view('auth.login');
+        }
+        
     }
 
     public function postManager()
     {
-        return view('admin.postManagement');
+        if($this->checkAdmin()) {
+            return view('admin.postManagement');
+        }else{
+            return view('auth.login');
+        }
+        
     }
 
     public function addressManager()
     {
-        return view('admin.addressManagement');
+        if($this->checkAdmin()) {
+            return view('admin.addressManagement');
+        }else{
+            return view('auth.login');
+        }
+        
     }
     
     public function checkAdmin(){
