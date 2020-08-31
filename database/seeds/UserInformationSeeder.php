@@ -23,6 +23,15 @@ class UserInformationSeeder extends Seeder
                 'created_at' => '2020-08-13 05:48:14',
                 'updated_at' => '2020-08-13 05:48:14',
             ],  
+            [
+                'fullName' => 'ducnhat',
+                'phone' => '123456',
+                'address' =>'Hà tĩnh',
+                'user_id'=> 2,
+                'avatar'=> 'avatar.jpg',
+                'created_at' => '2020-08-13 05:48:14',
+                'updated_at' => '2020-08-13 05:48:14',
+            ], 
         ]);
     }
 }

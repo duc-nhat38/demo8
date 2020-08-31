@@ -15,7 +15,7 @@ class HouseSeeder extends Seeder
     {
         DB::table('houses')->insert([
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'district_id' => '1',
                 'business_type_id' => '1',
                 'price'=> '10000',
@@ -24,7 +24,7 @@ class HouseSeeder extends Seeder
                 
             ],   
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'district_id' => '2',
                 'business_type_id' => '2',
                 'price'=> '124532',
@@ -32,7 +32,7 @@ class HouseSeeder extends Seeder
                 'updated_at' => '2020-08-13 05:48:14',
             ],   
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'district_id' => '3',
                 'business_type_id' => '3',
                 'price'=> '17654',
@@ -40,7 +40,7 @@ class HouseSeeder extends Seeder
                 'updated_at' => '2020-08-13 05:48:14',
             ],   
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'district_id' => '2',
                 'business_type_id' => '1',
                 'price'=> '1345678',
