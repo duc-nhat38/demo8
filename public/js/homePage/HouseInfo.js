@@ -76,6 +76,11 @@ comment.create = function (data) {
     if ($('#btnComment').data('id') != 0) {
         let content = $('#myComment').val();
         if (content) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             let id = $(data).data('id');
             $.ajax({
                 type: "POST",
@@ -83,7 +88,7 @@ comment.create = function (data) {
                 data: {
                     user_id: id,
                     house_id: $('#commentHouse').attr('data-id'),
-                    content: content,
+                    content: content
                 },
                 dataType: "json",
                 success: function (response) {
@@ -118,6 +123,11 @@ comment.edit = function (data) {
 comment.editComment = function (data) {
     let content = $('#editComment').val();
     if (content) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
             type: "PUT",
             url: "https://timnha.herokuapp.com/api/comment-house-edit",
@@ -144,6 +154,11 @@ comment.delete = function (data) {
         callback: function (result) {
             if (result) {
                 let id = $(data).data('id');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: "DELETE",
                     url: "https://timnha.herokuapp.com/api/comment-delete'",
@@ -267,6 +282,11 @@ vote.getMyVote = function () {
 vote.rating = function (data) {
     if ($('#voteHouse').data('id') != 0) {
         let rate = $(data).children('i:first').data('id');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
             type: "POST",
             url: "https://timnha.herokuapp.com/api/vote-house",

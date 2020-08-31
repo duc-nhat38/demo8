@@ -30,6 +30,11 @@ user.closeForm = function (data) {
 user.submitDataEdit = function (data) {
     if ($('#formInputUser').valid()) {
         let id = $('#hiddenUserId').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
             type: "PATCH",
             url: "https://timnha.herokuapp.com/api/update-user",
@@ -83,6 +88,11 @@ user.showAvatar = function (element) {
 user.updateAvatar = function () {
     if ($('#formUpdateAvatar').valid()) {
         let formData = new FormData($('#formUpdateAvatar')[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
             type: "POST",
             url: "https://timnha.herokuapp.com/api/update-avatar-user",
@@ -215,6 +225,11 @@ function houseDelete(data) {
         callback: function (result) {
             if (result) {
                 let id = $(data).data('houseid');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: "DELETE",
                     url: "https://timnha.herokuapp.com/api/house-delete",

@@ -145,6 +145,11 @@ banner.save = function () {
     if ($('#formAdBanner').valid()) {
         $('#editAddbanner').modal('hide');
         if ($('#hidden').val() != 0) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 method: "POST",
                 dataType: "json",
@@ -171,6 +176,11 @@ banner.save = function () {
                 $('#msgErrorDate').show();
                 return false;
             } else {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     method: "POST",
                     dataType: "json",
@@ -206,6 +216,11 @@ banner.delete = function (id) {
         },
         callback: function (result) {
             if (result) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url: 'https://timnha.herokuapp.com/api/banner-destroy',
                     method: "DELETE",

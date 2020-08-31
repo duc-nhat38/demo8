@@ -44,7 +44,11 @@ user.getUsers = function () {
 }
 
 user.lockUser = function (userId, locked) {
-
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $.ajax({
         method: "PATCH",
         dataType: "json",
@@ -61,6 +65,11 @@ user.lockUser = function (userId, locked) {
 }
 
 user.power = function (userId, role) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $.ajax({
         method: "PATCH",
         dataType: "json",

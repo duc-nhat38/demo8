@@ -109,6 +109,11 @@ address.edit = function (id, addressName) {
 address.save = function () {
     if ($('#formAddress').valid()) {
         if ($('#idHidden').val() != 0) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 method: "PUT",
                 url: "https://timnha.herokuapp.com/api/address-update",
@@ -127,6 +132,11 @@ address.save = function () {
                 }
             });
         } else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: "POST",
                 url: "https://timnha.herokuapp.com/api/address-create",
@@ -163,6 +173,11 @@ address.delete = function (id) {
         },
         callback: function (result) {
             if (result) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: "DELETE",
                     url: "https://timnha.herokuapp.com/api/address-destroy",
@@ -332,6 +347,11 @@ district.edit = function (id, districtName, address_id) {
 district.save = function () {
     if ($('#formAddress').valid()) {
         if ($('#idHidden').val() != 0) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 method: "PUT",
                 url: "https://timnha.herokuapp.com/api/district-update",
@@ -351,6 +371,11 @@ district.save = function () {
                 }
             });
         }else{
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: "POST",
                 url: "https://timnha.herokuapp.com/api/district-create",
@@ -388,6 +413,11 @@ district.delete = function (id) {
         },
         callback: function (result) {
             if (result) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     type: "DELETE",
                     url: "https://timnha.herokuapp.com/api/district-destroy",

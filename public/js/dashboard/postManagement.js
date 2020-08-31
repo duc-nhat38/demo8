@@ -68,6 +68,11 @@ post.save = function () {
     fomrPost.append('content', CKEDITOR.instances['editor1'].getData());
     if ($('#formDataPost').valid()) {
         if ($('#postId').val() != 0) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 method: 'POST',
                 url: 'https://timnha.herokuapp.com/api//post-update',
@@ -82,6 +87,11 @@ post.save = function () {
                 }
             });
         } else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 method: 'POST',
                 url: 'https://timnha.herokuapp.com/api/post-create',
@@ -114,6 +124,11 @@ post.delete = function (id) {
         },
         callback: function (result) {
             if (result) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url: 'https://timnha.herokuapp.com/api/post-destroy',
                     method: "DELETE",
