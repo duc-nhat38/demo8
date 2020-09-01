@@ -128,7 +128,7 @@ address.save = function () {
                     toastr["success"]("Thay đổi thành công !");
                 },
                 error: function (data) {
-                    $('#msgError').text(data.responseJSON.errors.address);
+                    $('#msgError').text(data.responseJSON.errors.address[0]);
                 }
             });
         } else {
@@ -150,7 +150,8 @@ address.save = function () {
                     toastr["success"]("Thêm thành công !");
                 },
                 error: function (data) {
-                    $('#msgError').text(data.responseJSON.errors.address);
+                    console.log(data.responseJSON.errors);
+                    $('#msgError').text(data.responseJSON.errors.address[0]);
                 }
             });
         }
@@ -367,7 +368,7 @@ district.save = function () {
                     toastr["success"]("Thay đổi thành công !");
                 },
                 error: function(data) {
-                    $('#msgError').text(data.responseJSON.errors.district);
+                    $('#msgError').text(data.responseJSON.errors.district[0]);
                 }
             });
         }else{
@@ -391,7 +392,7 @@ district.save = function () {
                     toastr["success"]("Thêm thành công !");
                 },
                 error: function(data) {
-                    $('#msgError').text(data.responseJSON.errors.district);
+                    $('#msgError').text(data.responseJSON.errors.district[0]);
                 }
             });
         }
