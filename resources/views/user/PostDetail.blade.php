@@ -6,8 +6,7 @@
 @section('content')
 @include('user.Search')
 <div class="container mt-5">
-    <div class="d-flex w-100 post-detail">
-        <div class="col-8">
+    <div class=" w-75 post-detail m-auto">
             @if ($post)
             <h5>{{ $post['title'] }}</h5>
             <div class="d-flex  justify-content-between">
@@ -21,8 +20,6 @@
                 {!! $post['content'] !!}
             </div>
             @endif
-        </div>
-        <div class="col-4"></div>
     </div>
     <div class="w-100 mt-5">
         <h5>Có thể ban quan tâm</h5><br>
