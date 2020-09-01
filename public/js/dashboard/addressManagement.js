@@ -141,6 +141,7 @@ address.save = function () {
                 type: "POST",
                 url: "/api/address-create",
                 data: {
+                    id: '0',
                     address: $('#nameEdit').val(),
                 },
                 dataType: "json",
