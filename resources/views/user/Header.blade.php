@@ -20,7 +20,7 @@
       @endif
       @else
       <li class="nav-item pt-2 active">
-        <div class="btn-group">
+        <div class="btn-group" id="cardDrop" data-id="{{ Auth::user()->id }}">
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <img src="{{ asset('uploads/images/users/user-'.Auth::user()->id.'/'.Auth::user()->information->avatar)}}"

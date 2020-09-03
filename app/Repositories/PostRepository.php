@@ -44,6 +44,7 @@ class PostRepository implements PostRepositoryInterface
                 'coverImage' => $fileName,
         ]);
         $array['imageUpload']->move(public_path("uploads/images/posts"), $fileName);
+
         return $post;
     }
     public function destroy($id)
@@ -62,6 +63,7 @@ class PostRepository implements PostRepositoryInterface
                 'coverImage' => $fileName,
             ]);
         $array['imageUpload']->move(public_path("uploads/images/posts"), $fileName);
+        
         return $post;
     }
     public function getPostNews()
